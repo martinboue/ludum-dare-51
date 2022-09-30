@@ -1,32 +1,27 @@
-import kaboom from "kaboom"
+import kaboom from "kaboom";
 
 // Assets
-import ghosty from "../assets/ghosty.png"
+import ghosty from "../assets/ghosty.png";
 
-kaboom()
+kaboom();
 
-loadBean()
-loadSprite("ghosty", ghosty)
+loadBean();
+loadSprite("ghosty", ghosty);
 
 const player = add([
   sprite("bean"),   
   pos(120, 80),
   rotate(0),
+  area(),
+  body(),
   origin("center"),
-])
+  "player",
+]);
 
-player.onUpdate(() => {
-  player.angle += 120 * dt()
-})
-
-for (let i = 0; i < 3; i++) {
-
-  const x = rand(0, width())
-  const y = rand(0, height())
-
-  add([
-    sprite("bean"),
-    pos(x, y),
-  ])
-
-}
+add([
+  rect(width(), 50),
+  pos(0, height() - 50),
+  area(),
+  solid(),
+  color(125, 125, 125)
+]);
