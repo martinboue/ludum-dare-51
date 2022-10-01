@@ -2,6 +2,7 @@
 
 import kaboom from "kaboom";
 import "./utils/array.js";
+import "./utils/number.js";
 
 // Assets
 import charactersAtlas from "../assets/Spritesheet/characters.png";
@@ -24,6 +25,9 @@ import keyMove from "./components/keyMove.js";
 import {generateBuildings} from "./building.js";
 import {orderHolder} from "./components/orderHolder.js";
 import {spawnNpcs} from "./character.js";
+import {elasped} from "./components/elasped.js";
+
+const EXPLORATION_TIME = 30; // 30s
 
 kaboom({
   scale: 4,
@@ -172,21 +176,69 @@ const buildings = generateBuildings();
 // Create order dialog
 const orderDialog = addDialog();
 
-wait(3, () => {
-  // Create new order every 10 seconds
-  loop(10, () => {
-    // Pick random restaurant (only those with a place for an order)
-    const notFullBuildings = buildings.filter(b => !b.isFull());
-    if (!Array.empty(notFullBuildings)) {
-      const building = notFullBuildings.shuffle()[0];
-      building.pushOrder(generateOrder(get('npc')));
-
-      // Update dialog with hint
-      orderDialog.showSms(building.name, orderLines.pickRandom());
+// Order timer
+const orderTimer = add([
+    text(''),
+    pos(width() - 100, 12),
+    fixed(),
+    elasped(1, function () {
+        this.text = `Next order: ${this.remainingTime}s`;
+        this.remainingTime -= 1;
+    }, false),
+    color(0, 0, 0),
+    {
+        remainingTime: 10,
     }
-  });
-});
+]);
 
+// Exploration timer
+const explorationText = add([
+    text('Explore !', {size: 12}),
+    pos(center().x - 12, center().y - 25),
+    origin('center'),
+    color(0, 0, 0),
+    elasped(3, function () {
+        destroy(this);
+    }),
+    fixed(),
+]);
+
+const explorationTimer = add([
+    text('', {size: 12}),
+    pos(center().x - 12, center().y - 50),
+    fixed(),
+    origin("center"),
+    elasped(1, function () {
+        if (this.remainingTime <= 0) {
+            destroy(this);
+            return;
+        }
+        this.text = `${this.remainingTime.pad('0', 2)}s`;
+        this.remainingTime -= 1;
+        orderTimer.restart();
+    }),
+    color(0, 0, 0),
+    {
+        remainingTime: EXPLORATION_TIME,
+    }
+]);
+
+wait(EXPLORATION_TIME, () => {
+    // Create new order every 10 seconds
+    loop(10, () => {
+        // Pick random restaurant (only those with a place for an order)
+        const notFullBuildings = buildings.filter(b => !b.isFull());
+        if (!Array.empty(notFullBuildings)) {
+          const building = notFullBuildings.shuffle()[0];
+          building.pushOrder(generateOrder(get('npc')));
+
+          // Update dialog with hint
+          orderDialog.showSms(building.name, orderLines.pickRandom());
+        }
+
+        orderTimer.remainingTime = 10;
+    });
+});
 
 // NPCs
 const npcs = spawnNpcs();
