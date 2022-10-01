@@ -4,64 +4,51 @@ import kaboom from "kaboom";
 import "./utils/array.js";
 
 // Assets
-import deliverer from "../assets/deliverer.png";
+import charactersAtlas from "../assets/Spritesheet/characters.png";
 import foodAtlas from "../assets/Spritesheet/food.png";
 import atlas from "../assets/Spritesheet/roguelikeCity_magenta.png";
-import { levelBackgrounds, levels } from "./levels.js";
 import mcdo from '../assets/mcdo.png';
 import kfc from '../assets/kfc.png';
 
+// Data
+import foodList from "./data/food.json";
+import npcList from "./data/npc.json";
+
 // Components
-import {addDialog, generateOrder, updateItemList} from "./order.js";
-import foodList from "./food.json";
+import { addDialog, generateOrder, updateItemList } from "./order.js";
 import keyMove from "./keyMove.js";
+import { levelBackgrounds, levels } from "./levels.js";
 import { generateBuildings } from "./building.js";
+import { spawnNpcs } from "./character.js";
 
 kaboom({
   scale: 4,
   font: "sink"
 });
 
-// Deliverer animations
-loadSpriteAtlas(deliverer, {
-  "deliverer": {
-    x: 0,
-    y: 0,
-    width: 16,
-    height: 192,
-    sliceY: 12,
-    anims: {
-      idle_left: 0,
-      left: {
-        from: 0,
-        to: 2,
-        speed: 5,
-        loop: true
-      },
-      idle_bottom: 3,
-      bottom: {
-        from: 3,
-        to: 5,
-        speed: 5,
-        loop: true
-      },
-      idle_top: 6,
-      top: {
-        from: 6,
-        to: 8,
-        speed: 5,
-        loop: true
-      },
-      idle_right: 9,
-      right: {
-        from: 9,
-        to: 11,
-        speed: 5,
-        loop: true
+// Characters animations
+loadSpriteAtlas(charactersAtlas,
+    npcList.reduce((prev, npc) => {
+      prev[npc.code] = {
+        x: 16 * npc.spriteIndex,
+        y: 0,
+        width: 16,
+        height: 16 * 12,
+        sliceY: 12,
+        anims: {
+          idle_left: 0,
+          left: { from: 0, to: 2, speed: 5, loop: true },
+          idle_bottom: 3,
+          bottom: { from: 3, to: 5, speed: 5, loop: true },
+          idle_top: 6,
+          top: { from: 6, to: 8, speed: 5, loop: true },
+          idle_right: 9,
+          right: { from: 9, to: 11, speed: 5, loop: true }
+        }
       }
-    }
-  }
-});
+      return prev
+    }, {})
+);
 
 // Food sprites
 loadSpriteAtlas(
@@ -85,6 +72,7 @@ loadSpriteAtlas(atlas, {
   }
 });
 
+// BACKGROUND
 loadSprite("levelBackground", levelBackgrounds[0]);
 
 loadSprite('mcdo', mcdo);
@@ -94,18 +82,23 @@ const background = add([
   sprite("levelBackground"),
 ]);
 
+// MAP
 const map = addLevel(levels[0], {
   width: 16,
   height: 16,
   "#": () => [
       area({width: 16, height: 16}),
       solid(),
-  ]
+  ],
+  "o": () => ["npc_spawn"],
+  "x": () => ["spawn"]
 });
 
+// PLAYER
+const spawn = get("spawn")[0]
 const player = add([
-  sprite("deliverer", { anim: "idle_bottom"}),
-  pos(center()),
+  sprite("male_1", { anim: "idle_bottom"}),
+  pos(spawn.pos.x + 8, spawn.pos.y + 8),
   rotate(0),
   solid(),
   area({ width: 16, height: 16 }),
@@ -142,3 +135,7 @@ wait(3, () => {
     updateItemList(orders);
   });
 });
+
+
+// NPCs
+const npcs = spawnNpcs();

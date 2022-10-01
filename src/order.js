@@ -1,6 +1,6 @@
 import {randomBetween, randomItem} from "./utils.js";
-import foodList from "./food.json";
-import pickUpLines from "./pick-up-lines.json";
+import foodList from "./data/food.json";
+import pickUpLines from "./data/pick-up-lines.json";
 
 
 
