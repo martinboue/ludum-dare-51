@@ -24,7 +24,7 @@ Array.partition = (array, condition) => {
     });
 
     return [match, rest];
-}
+};
 
 Array.prototype.pickRandom = function() {
     return this.shuffle()[0];

@@ -1,6 +1,6 @@
 'use strict';
 
-export default function talk(msg) {
+export default function talk(defaultMessage) {
 
     let txt;
 
@@ -10,19 +10,28 @@ export default function talk(msg) {
         add() {
             // Create text
             txt = add([
-                text(msg, { size: 5 }),
+                text(defaultMessage, { size: 5 }),
                 origin("center"),
                 pos(this.pos.x, this.pos.y - 16 - 2),
                 z(91),
-            ])
+            ]);
             txt.hidden = true;
 
             this.onCollide("deliverer", () => {
-                txt.hidden = false;
-            })
+                this.say(defaultMessage);
+            });
         },
+
         destroy() {
-            txt.destroy()
+            txt.destroy();
+        },
+
+        say(message, timeout=2) {
+            txt.hidden = false;
+            txt.text = message;
+            wait(timeout, () => {
+                txt.hidden = true;
+            });
         }
-    }
+    };
 }

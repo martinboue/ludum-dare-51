@@ -8,6 +8,6 @@ export function identity(iName, iBirthDate, iCompany, iCharacter) {
 
     return {
         id: 'identity',
-    }
+    };
 
 }

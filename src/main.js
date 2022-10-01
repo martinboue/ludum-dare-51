@@ -9,6 +9,8 @@ import foodAtlas from "../assets/Spritesheet/food.png";
 import {levelBackgrounds, levels} from "./levels.js";
 import mcdo from '../assets/mcdo.png';
 import kfc from '../assets/kfc.png';
+import michelNina from '../assets/michel&nina.png';
+import kebab56 from '../assets/kebab56.png';
 import phone from '../assets/phone.png';
 
 // Data
@@ -70,6 +72,8 @@ loadSprite("levelBackground", levelBackgrounds[0]);
 
 loadSprite('mcdo', mcdo);
 loadSprite('kfc', kfc);
+loadSprite('michel&nina', michelNina);
+loadSprite('kebab56', kebab56);
 
 loadSprite('phone', phone);
 
@@ -108,13 +112,13 @@ player.onUpdate(() => {
   camPos(player.pos);
 });
 
-const refreshOrderItems = (orders) => {
+const refreshOrderItems = () => {
   // Clear previous order items
   get('orderItem').forEach(destroy);
 
   // Create order item
   const margin = 2;
-  orders.forEach((order, index) =>
+  player.getOrders().forEach((order, index) =>
       add([
         sprite(order.food.code),
         pos(index * 16 + (index + 1) * margin, margin),
@@ -125,10 +129,10 @@ const refreshOrderItems = (orders) => {
         },
       ])
   );
-}
+};
 
 // When player pick order
-player.onPushOrder((order) => refreshOrderItems([order]));
+player.onPushOrder(refreshOrderItems);
 player.onPollOrder(refreshOrderItems);
 
 onKeyPress('space', () => {
@@ -154,8 +158,12 @@ onKeyPress('space', () => {
   every('npc', (npc) => {
     if (player.isTouching(npc)) {
       const orders = player.getOrdersFor(npc);
+
+      orders.forEach(o => {
+          npc.say("Thank for the order !");
+      });
     }
-  })
+  });
 });
 
 // Restaurants
