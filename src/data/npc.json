@@ -1,0 +1,103 @@
+[
+  {
+    "code": "male_1",
+    "spriteIndex": 0,
+    "gender": "male",
+    "age": "adult",
+    "outfit": {
+      "top": "grey",
+      "bottom": "black",
+      "type": null
+    },
+    "hair": {
+      "type": "bald",
+      "color": null
+    },
+    "hat": null
+  },
+  {
+    "code": "male_2",
+    "spriteIndex": 1,
+    "gender": "male",
+    "age": "adult",
+    "outfit": {
+      "top": "green",
+      "bottom": "green",
+      "type": null
+    },
+    "hair": {
+      "type": "short",
+      "color": "brown"
+    },
+    "hat": null
+  },
+  {
+    "code": "woman_1",
+    "spriteIndex": 2,
+    "gender": "woman",
+    "age": "adult",
+    "outfit": {
+      "top": "red",
+      "bottom": "blue",
+      "type": null
+    },
+    "hair": {
+      "type": "long",
+      "color": "brown"
+    },
+    "hat": null
+  },
+  {
+    "code": "male_3",
+    "spriteIndex": 3,
+    "gender": "male",
+    "age": "old",
+    "outfit": {
+      "top": "brown",
+      "bottom": "green",
+      "type": null
+    },
+    "hair": {
+      "type": "short",
+      "color": "grey"
+    },
+    "hat": null
+  },
+  {
+    "code": "male_4",
+    "spriteIndex": 4,
+    "gender": "male",
+    "job": "retired",
+    "outfit": {
+      "top": "grey",
+      "bottom": "blue",
+      "type": "builder"
+    },
+    "hair": {
+      "type": "short",
+      "color": "black"
+    },
+    "hat": {
+      "color": "yellow",
+      "type": "helmet"
+    }
+  },
+  {
+    "code": "woman_2",
+    "spriteIndex": 5,
+    "gender": "woman",
+    "outfit": {
+      "top": "brown",
+      "bottom": "grey",
+      "type": null
+    },
+    "hair": {
+      "type": "long",
+      "color": "black"
+    },
+    "hat": {
+      "color": "orange",
+      "type": "headband"
+    }
+  }
+]
