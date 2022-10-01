@@ -3,7 +3,7 @@ import talk from "./components/talk.js";
 import {faker} from "@faker-js/faker";
 import {identity} from "./components/identity.js";
 
-export function spawnNpcs() {
+export function spawnNpcs(deliverer) {
     // Get each spawn and select some randomly
     const spawns = get("npc_spawn").shuffle().slice(0, 20);
     return spawns.map(spawn => {
@@ -17,8 +17,8 @@ export function spawnNpcs() {
         // Choose random age
         const birthDate = faker.date.birthdate({ ...getAgeRange(character.ageCategory), mode: "age" });
 
-        // Choose random company
-        const company = faker.company.name();
+        // Choose random country
+        const country = faker.address.country();
 
         // Create npc
         return add([
@@ -28,8 +28,8 @@ export function spawnNpcs() {
             solid(),
             area({ width: 16, height: 16 }),
             origin("center"),
-            talk(firstName + " " + lastName),
-            identity(firstName, lastName, birthDate, company, character),
+            talk(deliverer),
+            identity(firstName, lastName, birthDate, country, character),
             "npc"
         ]);
     });

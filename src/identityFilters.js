@@ -1,4 +1,10 @@
-import dayjs from "dayjs";
+import {
+    toReadableAgeCategory,
+    toReadableDate,
+    toReadableHatType,
+    toReadableMonth,
+    toReadableOutfitType
+} from "./utils/readable.js";
 
 const getAge = (birthDate) => {
     const msDiff = Date.now() - birthDate;
@@ -9,37 +15,6 @@ const getAge = (birthDate) => {
 const betweenInclusive = (value, min, max) => min <= value && value <= max;
 
 const getFullName = (npc) => `${npc.identity.firstName} ${npc.identity.lastName}`;
-
-const toReadableAgeCategory = (ageCategory) => {
-    switch (ageCategory) {
-        case "adult": return "an adult";
-        case "old": return "an elderly person"
-        default:
-            console.warn(`The age category '${ageCategory}' has no readable value.`)
-            return ageCategory;
-    }
-}
-
-const toReadableOutfitType = (outfitType) => {
-    switch (outfitType) {
-        case null: return "a classic outfit"
-        case "builder": return "a construction outfit"
-        default:
-            console.warn(`The outfit type '${outfitType}' has no readable value.`)
-            return outfitType
-    }
-}
-
-const toReadableHatType = (hatType) => {
-    switch (hatType) {
-        case null: return "no hat"
-        case "helmet": return "a helmet"
-        case "headband": return "a headband"
-        default:
-            console.warn(`The hat type '${hatType}' has no readable value.`)
-            return hatType
-    }
-}
 
 export const uniqueIdentityFilter = {
     filterName: "fullName",
@@ -95,7 +70,7 @@ export const identityFilters = [
         filterName: "birthDate",
         filterFn: (clientNpc) => (npc) => npc.identity.birthDate === clientNpc.identity.birthDate,
         textsFn: [
-            (clientNpc) => `He was born on ${ dayjs(clientNpc.identity.birthDate).format("D MMMM YYYY") }.`
+            (clientNpc) => `He was born on ${ toReadableDate(clientNpc.identity.birthDate) }.`
         ]
     },
     {
@@ -109,7 +84,7 @@ export const identityFilters = [
         filterName: "birthDateMonth",
         filterFn: (clientNpc) => (npc) => npc.identity.birthDate.getMonth() === clientNpc.identity.birthDate.getMonth(),
         textsFn: [
-            (clientNpc) => `He is born in ${ dayjs(clientNpc.identity.birthDate).format("MMMM") }.`
+            (clientNpc) => `He is born in ${ toReadableMonth(clientNpc.identity.birthDate) }.`
         ]
     },
     {
@@ -132,19 +107,12 @@ export const identityFilters = [
     // TODO : ageOlderThan: (min) => (npc) => getAge(npc.identity.birthDate) > min,
     // TODO : ageYoungerThan: (max) => (npc) => getAge(npc.identity.birthDate) < max,
 
-    // Company
+    // Country
     {
-        filterName: "company",
-        filterFn: (clientNpc) => (npc) => npc.identity.company === clientNpc.identity.company,
+        filterName: "country",
+        filterFn: (clientNpc) => (npc) => npc.identity.country === clientNpc.identity.country,
         textsFn: [
-            (clientNpc) => `His company is ${ clientNpc.identity.company }.`
-        ]
-    },
-    {
-        filterName: "companyStartsWith",
-        filterFn: (clientNpc) => (npc) => npc.identity.company.startsWith(clientNpc.identity.company[0]),
-        textsFn: [
-            (clientNpc) => `His company starts with the letter "${ clientNpc.identity.company[0] }".`
+            (clientNpc) => `He comes from ${ clientNpc.identity.country }.`
         ]
     },
 

@@ -189,4 +189,4 @@ wait(3, () => {
 
 
 // NPCs
-const npcs = spawnNpcs();
+const npcs = spawnNpcs(player);
