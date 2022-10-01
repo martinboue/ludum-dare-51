@@ -84,7 +84,7 @@ const player = add([
   solid(),
   area({ width: 16, height: 16 }),
   origin("center"),
-  keyMove(120),
+  keyMove(200),
   "deliverer",
 ]);
 
@@ -92,29 +92,6 @@ const player = add([
 player.onUpdate(() => {
   camPos(player.pos)
 })
-const DELIVERER_SPEED = 120; // pixel per sec
-
-// Deliverer movements
-const releaseMovement = (animationName) => {
-  if (!isKeyDown("left") && !isKeyDown("right") && !isKeyDown("up") && !isKeyDown("down")) {
-    player.play(animationName)
-  }
-}
-onKeyPress("right", () => player.play("right"));
-onKeyDown("right", () => player.move(DELIVERER_SPEED, 0))
-onKeyRelease("right", () => releaseMovement("idle_right"));
-
-onKeyPress("left", () => player.play("left"));
-onKeyDown("left", () => player.move(-DELIVERER_SPEED, 0))
-onKeyRelease("left", () => releaseMovement("idle_left"));
-
-onKeyPress("up", () => player.play("top"));
-onKeyDown("up", () => player.move(0, -DELIVERER_SPEED))
-onKeyRelease("up", () => releaseMovement("idle_top"));
-
-onKeyPress("down", () => player.play("bottom"));
-onKeyDown("down", () => player.move(0, DELIVERER_SPEED))
-onKeyRelease("down", () => releaseMovement("idle_bottom"));
 
 // List of all current orders
 const orders = []
