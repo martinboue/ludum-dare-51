@@ -85,3 +85,8 @@ const player = add([
   keyMove(120),
   "deliverer",
 ]);
+
+// Camera follow player
+player.onUpdate(() => {
+  camPos(player.pos)
+})
