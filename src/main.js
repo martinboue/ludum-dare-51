@@ -1,27 +1,85 @@
 import kaboom from "kaboom";
 
 // Assets
-import ghosty from "../assets/ghosty.png";
+import deliverer from "../assets/deliverer.png";
 
-kaboom();
+kaboom({
+  scale: 4
+});
 
 loadBean();
-loadSprite("ghosty", ghosty);
+
+// Deliverer animations
+loadSpriteAtlas(deliverer, {
+  "deliverer": {
+    x: 0,
+    y: 0,
+    width: 16,
+    height: 192,
+    sliceY: 12,
+    anims: {
+      idle_left: 0,
+      left: {
+        from: 0,
+        to: 2,
+        speed: 5,
+        loop: true
+      },
+      idle_bottom: 3,
+      bottom: {
+        from: 3,
+        to: 5,
+        speed: 5,
+        loop: true
+      },
+      idle_top: 6,
+      top: {
+        from: 6,
+        to: 8,
+        speed: 5,
+        loop: true
+      },
+      idle_right: 9,
+      right: {
+        from: 9,
+        to: 11,
+        speed: 5,
+        loop: true
+      }
+    }
+  }
+})
 
 const player = add([
-  sprite("bean"),   
-  pos(120, 80),
+  sprite("deliverer", { anim: "idle_bottom"}),
+  pos(center()),
   rotate(0),
-  area(),
-  body(),
+  solid(),
+  area({ width: 16, height: 16 }),
   origin("center"),
-  "player",
+  "deliverer",
 ]);
 
-add([
-  rect(width(), 50),
-  pos(0, height() - 50),
-  area(),
-  solid(),
-  color(125, 125, 125)
-]);
+const DELIVERER_SPEED = 120; // pixel per sec
+
+// Deliverer movements
+const releaseMovement = (animationName) => {
+  if (!isKeyDown("left") && !isKeyDown("right") && !isKeyDown("up") && !isKeyDown("down")) {
+    player.play(animationName)
+  }
+}
+onKeyPress("right", () => player.play("right"));
+onKeyDown("right", () => player.move(DELIVERER_SPEED, 0))
+onKeyRelease("right", () => releaseMovement("idle_right"));
+
+onKeyPress("left", () => player.play("left"));
+onKeyDown("left", () => player.move(-DELIVERER_SPEED, 0))
+onKeyRelease("left", () => releaseMovement("idle_left"));
+
+onKeyPress("up", () => player.play("top"));
+onKeyDown("up", () => player.move(0, -DELIVERER_SPEED))
+onKeyRelease("up", () => releaseMovement("idle_top"));
+
+onKeyPress("down", () => player.play("bottom"));
+onKeyDown("down", () => player.move(0, DELIVERER_SPEED))
+onKeyRelease("down", () => releaseMovement("idle_bottom"));
