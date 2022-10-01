@@ -28,7 +28,7 @@ import {spawnNpcs} from "./character.js";
 import {elasped} from "./components/elasped.js";
 import {addGlobalDialog} from "./globalDialog.js";
 
-const EXPLORATION_TIME = 5; // 30s
+const EXPLORATION_TIME = 30; // 30s
 
 kaboom({
     scale: 4,
@@ -234,7 +234,7 @@ add([
 
 wait(EXPLORATION_TIME, () => {
     // Create new order every 10 seconds
-    loop(10, () => {
+    loop(11, () => {
         // Pick random restaurant (only those with a place for an order)
         const notFullBuildings = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullBuildings)) {

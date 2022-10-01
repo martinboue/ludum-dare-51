@@ -1,7 +1,7 @@
 'use strict';
 
 Array.prototype.shuffle = function() {
-    const positions = [...Array(this.length).keys()].sort((a, b) => 0.5 - Math.random());
+    const positions = [...Array(this.length).keys()].sort((a, b) => Math.random() - Math.random());
     const result = [];
 
     this.forEach((element, index) => {

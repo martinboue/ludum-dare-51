@@ -14,7 +14,7 @@ export default function talk(deliverer, options={ width: 100, offset: {x: 0, y: 
                 text("", { size: 6, width: options.width }),
                 origin("bot"),
                 pos(this.pos.x + options.offset.x, this.pos.y + options.offset.y),
-                color(255, 255, 0),
+                color(255, 255, 255),
                 z(90),
             ]);
             txt.hidden = true;
