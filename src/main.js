@@ -98,7 +98,7 @@ const player = add([
   area({ width: 16, height: 16 }),
   origin("center"),
   keyMove(200),
-  orderHolder(),
+  orderHolder(2),
   "deliverer",
 ]);
 
@@ -127,15 +127,20 @@ player.onPushOrder((order) => {
 onKeyPress('space', () => {
   every('building', (building) => {
     if (player.isTouching(building)) {
-      // Take first order of the building
-      const order = building.pollOrder();
-      if (order) {
-        orderDialog.showOrder(order);
-        player.pushOrder(order);
-      } else {
-        shake(1);
-        orderDialog.showNoOrder(order);
-      }
+        // Take first order of the building (we don't delete it right now in cas the player can't take it)
+        const order = building.peekOrder();
+        if (order) {
+          if (player.isFull()) {
+            shake(1);
+            orderDialog.showSms(building.name, "Where do you want me to put this? You don't have room to carry any more orders!");
+          } else {
+            orderDialog.showOrder(order);
+            player.pushOrder(building.pollOrder());
+          }
+        } else {
+          shake(1);
+          orderDialog.showNoOrder(order);
+        }
     }
   });
 });
@@ -149,15 +154,15 @@ const orderDialog = addDialog();
 wait(3, () => {
   // Create new order every 10 seconds
   loop(10, () => {
-    // Create order
-    const order = generateOrder();
+    // Pick random restaurant (only those with a place for an order)
+    const notFullBuildings = buildings.filter(b => !b.isFull());
+    if (!Array.empty(notFullBuildings)) {
+      const building = notFullBuildings.shuffle()[0];
+      building.pushOrder(generateOrder());
 
-    // Pick random restaurant
-    const building = buildings.shuffle()[0];
-    building.pushOrder(order);
-
-    // Update dialog with hint
-    orderDialog.showSms(building.name, 'order for you');
+      // Update dialog with hint
+      orderDialog.showSms(building.name, 'order for you');
+    }
   });
 });
 

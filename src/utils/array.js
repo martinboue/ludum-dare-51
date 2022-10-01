@@ -39,3 +39,5 @@ Array.prototype.peekRandom = function() {
     const index = Math.floor(Math.random() * this.length);
     return this[index];
 };
+
+Array.empty = (array) => array.length <= 0;

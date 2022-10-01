@@ -27,7 +27,7 @@ export function  generateBuildings() {
             info.sprite,
             info.color,
             info.name, // To use name has tag
-            orderHolder(),
+            orderHolder(5),
             "building",
             {
                 name: info.name
