@@ -20,14 +20,15 @@ import npcList from "./data/characters.json";
 import orderLines from "./data/order-lines.json";
 
 // Components
-import { addDialog, generateOrder } from "./order.js";
+import {generateOrder} from "./order.js";
 import keyMove from "./components/keyMove.js";
 import {generateBuildings} from "./building.js";
 import {orderHolder} from "./components/orderHolder.js";
 import {spawnNpcs} from "./character.js";
 import {elasped} from "./components/elasped.js";
+import {addGlobalDialog} from "./globalDialog.js";
 
-const EXPLORATION_TIME = 30; // 30s
+const EXPLORATION_TIME = 5; // 30s
 
 kaboom({
     scale: 4,
@@ -100,7 +101,7 @@ const map = addLevel(levels[0], {
 
 // PLAYER
 const spawn = get("spawn")[0];
-const player = add([
+const deliverer = add([
   sprite("male_1", { anim: "idle_bottom"}),
   pos(spawn.pos.x + 8, spawn.pos.y + 8),
   rotate(0),
@@ -113,8 +114,8 @@ const player = add([
 ]);
 
 // Camera follow player
-player.onUpdate(() => {
-  camPos(player.pos);
+deliverer.onUpdate(() => {
+  camPos(deliverer.pos);
 });
 
 const refreshOrderItems = () => {
@@ -123,7 +124,7 @@ const refreshOrderItems = () => {
 
   // Create order item
   const margin = 2;
-  player.getOrders().forEach((order, index) =>
+  deliverer.getOrders().forEach((order, index) =>
       add([
         sprite(order.food.code),
         pos(index * 16 + (index + 1) * margin, margin),
@@ -137,32 +138,32 @@ const refreshOrderItems = () => {
 };
 
 // When player pick order
-player.onPushOrder(refreshOrderItems);
-player.onPollOrder(refreshOrderItems);
+deliverer.onPushOrder(refreshOrderItems);
+deliverer.onPollOrder(refreshOrderItems);
 
 onKeyPress('space', () => {
   every('building', (building) => {
-    if (player.isTouching(building)) {
+    if (deliverer.isTouching(building)) {
         // Take first order of the building (we don't delete it right now in cas the player can't take it)
         const order = building.peekOrder();
         if (order) {
-          if (player.isFull()) {
+          if (deliverer.isFull()) {
             shake(1);
-            orderDialog.showSms(building.name, "You can't carry this order, go deliver your orders and get back to me later!");
+            building.say("You can't carry this order, go deliver your orders and get back to me later!");
           } else {
-            orderDialog.showOrder(order);
-            player.pushOrder(building.pollOrder());
+            building.say(order.deliveryInfo.hint);
+            deliverer.pushOrder(building.pollOrder());
           }
         } else {
-          shake(1);
-          orderDialog.showNoOrder(order);
+            shake(1);
+            building.say('Sorry, no order for you.');
         }
     }
   });
 
   every('npc', (npc) => {
-    if (player.isTouching(npc)) {
-      const orders = player.popOrdersFor(npc);
+    if (deliverer.isTouching(npc)) {
+      const orders = deliverer.popOrdersFor(npc);
 
       orders.forEach(o => {
           npc.say("Thank for the order !");
@@ -172,10 +173,17 @@ onKeyPress('space', () => {
 });
 
 // Restaurants
-const buildings = generateBuildings();
+const buildings = generateBuildings(deliverer);
 
-// Create order dialog
-const orderDialog = addDialog();
+// NPCs
+spawnNpcs(deliverer).forEach((npc) => {
+    npc.onCollide("deliverer", () => {
+        npc.say(npc.presentation());
+    });
+})
+
+// Create globalDialog
+const globalDialog = addGlobalDialog();
 
 // Order timer
 const orderTimer = add([
@@ -193,7 +201,7 @@ const orderTimer = add([
 ]);
 
 // Exploration timer
-const explorationText = add([
+add([
     text('Explore !', {size: 12}),
     pos(center().x - 12, center().y - 25),
     origin('center'),
@@ -204,7 +212,7 @@ const explorationText = add([
     fixed(),
 ]);
 
-const explorationTimer = add([
+add([
     text('', {size: 12}),
     pos(center().x - 12, center().y - 50),
     fixed(),
@@ -214,7 +222,7 @@ const explorationTimer = add([
             destroy(this);
             return;
         }
-        this.text = `${this.remainingTime.pad('0', 2)}s`;
+        this.text = `${this.remainingTime.pad('0', 2)}`;
         this.remainingTime -= 1;
         orderTimer.restart();
     }),
@@ -233,13 +241,10 @@ wait(EXPLORATION_TIME, () => {
           const building = notFullBuildings.shuffle()[0];
           building.pushOrder(generateOrder(get('npc')));
 
-          // Update dialog with hint
-          orderDialog.showSms(building.name, orderLines.pickRandom());
+          // Update globalDialog with hint
+          globalDialog.show(building.name, orderLines.pickRandom());
         }
 
         orderTimer.remainingTime = 10;
     });
 });
-
-// NPCs
-const npcs = spawnNpcs(player);

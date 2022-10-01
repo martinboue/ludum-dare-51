@@ -1,26 +1,23 @@
 'use strict';
 
-export default function talk(deliverer) {
+export default function talk(deliverer, options={ width: 100, offset: {x: 0, y: -8} }) {
 
     let txt;
 
     return {
         id: 'talk',
-        require: ['pos', 'area', 'identity'],
+        require: ['pos', 'area'],
         add() {
+
             // Create text
             txt = add([
-                text("", { size: 5, width: 100 }),
+                text("", { size: 6, width: options.width }),
                 origin("bot"),
-                pos(this.pos.x, this.pos.y - 8),
-                z(91),
+                pos(this.pos.x + options.offset.x, this.pos.y + options.offset.y),
+                color(255, 255, 0),
+                z(90),
             ]);
             txt.hidden = true;
-
-            this.onCollide("deliverer", () => {
-                const message = this.presentation()
-                this.say(message);
-            });
         },
 
         destroy() {

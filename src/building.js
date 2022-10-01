@@ -1,8 +1,9 @@
 'use strict';
 
 import {orderHolder} from "./components/orderHolder.js";
+import talk from "./components/talk.js";
 
-export function  generateBuildings() {
+export function generateBuildings(deliverer) {
     const buildingPositions = [
         pos(288, 208),
         pos(384, 448),
@@ -22,6 +23,13 @@ export function  generateBuildings() {
             area(),
             solid(),
             posComp,
+            talk(deliverer, {
+                width: 300,
+                offset: {
+                    x: 50,
+                    y: 100,
+                }
+            }),
             info.sprite,
             info.name, // To use name has tag
             orderHolder(5),
