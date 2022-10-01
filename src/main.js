@@ -1,11 +1,19 @@
+'use strict';
+
 import kaboom from "kaboom";
+import "./utils/array.js";
 
 // Assets
 import deliverer from "../assets/deliverer.png";
 import atlas from "../assets/Spritesheet/roguelikeCity_magenta.png";
-import {addDialog, generateOrder} from "./order.js";
+import { levelBackgrounds, levels } from "./levels.js";
+import mcdo from '../assets/mcdo.png';
+import kfc from '../assets/kfc.png';
+
+// Components
+import { addDialog, generateOrder } from "./order.js";
 import keyMove from "./keyMove.js";
-import {levelBackgrounds, levels} from "./levels.js";
+import { generateBuildings } from "./building.js";
 
 kaboom({
   scale: 4,
@@ -64,6 +72,9 @@ loadSpriteAtlas(atlas, {
 
 loadSprite("levelBackground", levelBackgrounds[0]);
 
+loadSprite('mcdo', mcdo);
+loadSprite('kfc', kfc);
+
 const background = add([
   sprite("levelBackground"),
 ]);
@@ -91,7 +102,9 @@ const player = add([
 // Camera follow player
 player.onUpdate(() => {
   camPos(player.pos)
-})
+});
+
+const buildings = generateBuildings();
 
 // List of all current orders
 const orders = []
@@ -111,4 +124,3 @@ wait(3, () => {
     orderDialog.show(order.deliveryLocation.hint)
   })
 })
-

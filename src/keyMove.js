@@ -1,3 +1,5 @@
+'use strict';
+
 export default function keyMove(deliverSpeed) {
     return {
         id: 'move',
