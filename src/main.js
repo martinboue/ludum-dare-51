@@ -13,11 +13,11 @@ import phone from '../assets/phone.png';
 
 // Data
 import foodList from "./data/food.json";
-import npcList from "./data/npc.json";
+import npcList from "./data/characters.json";
 
 // Components
 import { addDialog, generateOrder, updateOrderItemList } from "./order.js";
-import keyMove from "./keyMove.js";
+import keyMove from "./components/keyMove.js";
 import {generateBuildings} from "./building.js";
 import {orderHolder} from "./orderHolder.js";
 import {spawnNpcs} from "./character.js";

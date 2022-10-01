@@ -3,7 +3,7 @@
     "code": "male_1",
     "spriteIndex": 0,
     "gender": "male",
-    "age": "adult",
+    "ageCategory": "adult",
     "outfit": {
       "top": "grey",
       "bottom": "black",
@@ -19,7 +19,7 @@
     "code": "male_2",
     "spriteIndex": 1,
     "gender": "male",
-    "age": "adult",
+    "ageCategory": "adult",
     "outfit": {
       "top": "green",
       "bottom": "green",
@@ -35,7 +35,7 @@
     "code": "woman_1",
     "spriteIndex": 2,
     "gender": "woman",
-    "age": "adult",
+    "ageCategory": "adult",
     "outfit": {
       "top": "red",
       "bottom": "blue",
@@ -51,7 +51,7 @@
     "code": "male_3",
     "spriteIndex": 3,
     "gender": "male",
-    "age": "old",
+    "ageCategory": "old",
     "outfit": {
       "top": "brown",
       "bottom": "green",
@@ -67,7 +67,7 @@
     "code": "male_4",
     "spriteIndex": 4,
     "gender": "male",
-    "job": "retired",
+    "ageCategory": "adult",
     "outfit": {
       "top": "grey",
       "bottom": "blue",
@@ -86,6 +86,7 @@
     "code": "woman_2",
     "spriteIndex": 5,
     "gender": "woman",
+    "ageCategory": "adult",
     "outfit": {
       "top": "brown",
       "bottom": "grey",
