@@ -69,7 +69,7 @@ export function addDialog() {
 
         showOrder(order) {
             const text = order.pickUpLocation.line
-                .replace("{hint}", order.deliveryLocation.hint)
+                .replace("{hint}", order.deliveryInfo.hint)
                 .replace("{food}", order.food.name)
             ;
 
@@ -97,7 +97,7 @@ export function addDialog() {
     };
 }
 
-export function generateOrder() {
+export function generateOrder(npcList) {
     // Choose random food
     const food = foodList.pickRandom();
 
@@ -108,23 +108,15 @@ export function generateOrder() {
     };
 
     // Generate a delivery location and hint
-    const deliveryLocation = {
+    const deliveryInfo = {
         hint: "the guy with the hat", // TODO : generate hint
-        pos: { x: 10, y: 10 }
+        client: npcList.pickRandom()
     };
 
     // Create order
     return {
         food: food,
         pickUpLocation: pickUpLocation,
-        deliveryLocation: deliveryLocation,
+        deliveryInfo: deliveryInfo,
     };
-}
-
-export function updateOrderItemList() {
-    const margin = 2;
-    const orderItems = get('orderItem');
-    orderItems.forEach((orderItem, index) => {
-        orderItem.moveTo(index * 16 + (index + 1) * margin, margin);
-    });
 }

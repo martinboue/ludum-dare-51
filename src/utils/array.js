@@ -11,6 +11,21 @@ Array.prototype.shuffle = function() {
     return result;
 };
 
+Array.partition = (array, condition) => {
+    const match = [];
+    const rest = [];
+
+    array.forEach(e => {
+        if (condition(e)) {
+            match.push(e);
+        } else {
+            rest.push(e);
+        }
+    });
+
+    return [match, rest];
+}
+
 Array.prototype.pickRandom = function() {
     return this.shuffle()[0];
 };

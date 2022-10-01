@@ -19,7 +19,7 @@ export function orderHolder(max) {
         pollOrder() {
             const head = orders.head();
             orders = orders.tail();
-
+            this.trigger('poll-order', [head]);
             return head;
         },
 
@@ -32,6 +32,16 @@ export function orderHolder(max) {
             return orders;
         },
 
+        // Return all orders for the specified npc and remove it from current holder.
+        getOrdersFor(npc) {
+            const [forNpcOrders, otherOrders] = Array.partition(orders, o => o.deliveryInfo.client._id === npc._id);
+            orders = otherOrders;
+
+            this.trigger('poll-order', otherOrders);
+
+            return forNpcOrders;
+        },
+
         getMax() {
             return max;
         },
@@ -42,6 +52,10 @@ export function orderHolder(max) {
 
         onPushOrder(cb) {
             this.on('push-order', cb);
+        },
+
+        onPollOrder(cb) {
+            this.on('poll-order', cb);
         }
     };
 }

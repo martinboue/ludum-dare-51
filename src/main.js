@@ -14,9 +14,10 @@ import phone from '../assets/phone.png';
 // Data
 import foodList from "./data/food.json";
 import npcList from "./data/npc.json";
+import orderLines from "./data/order-lines.json";
 
 // Components
-import { addDialog, generateOrder, updateOrderItemList } from "./order.js";
+import { addDialog, generateOrder } from "./order.js";
 import keyMove from "./keyMove.js";
 import {generateBuildings} from "./building.js";
 import {orderHolder} from "./orderHolder.js";
@@ -107,22 +108,28 @@ player.onUpdate(() => {
   camPos(player.pos);
 });
 
-// When player pick order
-player.onPushOrder((order) => {
+const refreshOrderItems = (orders) => {
+  // Clear previous order items
+  get('orderItem').forEach(destroy);
 
   // Create order item
-  add([
-    sprite(order.food.code),
-    pos(0, 0),
-    z(100),
-    'orderItem',
-    {
-      fixed: true
-    },
-  ]);
+  const margin = 2;
+  orders.forEach((order, index) =>
+      add([
+        sprite(order.food.code),
+        pos(index * 16 + (index + 1) * margin, margin),
+        z(100),
+        'orderItem',
+        {
+          fixed: true
+        },
+      ])
+  );
+}
 
-  updateOrderItemList();
-});
+// When player pick order
+player.onPushOrder((order) => refreshOrderItems([order]));
+player.onPollOrder(refreshOrderItems);
 
 onKeyPress('space', () => {
   every('building', (building) => {
@@ -132,7 +139,7 @@ onKeyPress('space', () => {
         if (order) {
           if (player.isFull()) {
             shake(1);
-            orderDialog.showSms(building.name, "Where do you want me to put this? You don't have room to carry any more orders!");
+            orderDialog.showSms(building.name, "You can't carry this order, go deliver your orders and get back to me later!");
           } else {
             orderDialog.showOrder(order);
             player.pushOrder(building.pollOrder());
@@ -143,6 +150,12 @@ onKeyPress('space', () => {
         }
     }
   });
+
+  every('npc', (npc) => {
+    if (player.isTouching(npc)) {
+      const orders = player.getOrdersFor(npc);
+    }
+  })
 });
 
 // Restaurants
@@ -158,10 +171,10 @@ wait(3, () => {
     const notFullBuildings = buildings.filter(b => !b.isFull());
     if (!Array.empty(notFullBuildings)) {
       const building = notFullBuildings.shuffle()[0];
-      building.pushOrder(generateOrder());
+      building.pushOrder(generateOrder(get('npc')));
 
       // Update dialog with hint
-      orderDialog.showSms(building.name, 'order for you');
+      orderDialog.showSms(building.name, orderLines.pickRandom());
     }
   });
 });

@@ -2,7 +2,7 @@ import npcList from "./data/npc.json";
 
 export function spawnNpcs() {
     // Get each spawn and select some randomly
-    const spawns = get("npc_spawn").shuffle().slice(0, 50);
+    const spawns = get("npc_spawn").shuffle().slice(0, 1);
     return spawns.map(spawn => {
         // Choose random sprite
         const npc = npcList.pickRandom();
