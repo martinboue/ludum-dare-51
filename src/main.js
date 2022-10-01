@@ -30,8 +30,9 @@ import {elasped} from "./components/elasped.js";
 const EXPLORATION_TIME = 30; // 30s
 
 kaboom({
-  scale: 4,
-  font: "sink"
+    scale: 4,
+    font: "sink",
+    background: [ 166, 169, 174 ]
 });
 
 // Characters animations
@@ -161,7 +162,7 @@ onKeyPress('space', () => {
 
   every('npc', (npc) => {
     if (player.isTouching(npc)) {
-      const orders = player.getOrdersFor(npc);
+      const orders = player.popOrdersFor(npc);
 
       orders.forEach(o => {
           npc.say("Thank for the order !");
@@ -241,4 +242,4 @@ wait(EXPLORATION_TIME, () => {
 });
 
 // NPCs
-const npcs = spawnNpcs();
+const npcs = spawnNpcs(player);

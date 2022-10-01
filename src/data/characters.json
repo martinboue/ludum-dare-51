@@ -6,14 +6,11 @@
     "ageCategory": "adult",
     "outfit": {
       "top": "grey",
-      "bottom": "black",
-      "type": null
+      "bottomColor": "black",
+      "type": null,
+      "hat": null
     },
-    "hair": {
-      "type": "bald",
-      "color": null
-    },
-    "hat": null
+    "hair": null
   },
   {
     "code": "male_2",
@@ -21,15 +18,15 @@
     "gender": "male",
     "ageCategory": "adult",
     "outfit": {
-      "top": "green",
-      "bottom": "green",
-      "type": null
+      "topColor": "green",
+      "bottomColor": "green",
+      "type": null,
+      "hat": null
     },
     "hair": {
       "type": "short",
       "color": "brown"
-    },
-    "hat": null
+    }
   },
   {
     "code": "woman_1",
@@ -37,15 +34,15 @@
     "gender": "woman",
     "ageCategory": "adult",
     "outfit": {
-      "top": "red",
-      "bottom": "blue",
-      "type": null
+      "topColor": "red",
+      "bottomColor": "blue",
+      "type": null,
+      "hat": null
     },
     "hair": {
       "type": "long",
       "color": "brown"
-    },
-    "hat": null
+    }
   },
   {
     "code": "male_3",
@@ -53,15 +50,15 @@
     "gender": "male",
     "ageCategory": "old",
     "outfit": {
-      "top": "brown",
-      "bottom": "green",
-      "type": null
+      "topColor": "brown",
+      "bottomColor": "green",
+      "type": null,
+      "hat": null
     },
     "hair": {
       "type": "short",
       "color": "grey"
-    },
-    "hat": null
+    }
   },
   {
     "code": "male_4",
@@ -69,17 +66,17 @@
     "gender": "male",
     "ageCategory": "adult",
     "outfit": {
-      "top": "grey",
-      "bottom": "blue",
-      "type": "builder"
+      "topColor": "grey",
+      "bottomColor": "blue",
+      "type": "builder",
+      "hat": {
+        "color": "yellow",
+        "type": "helmet"
+      }
     },
     "hair": {
       "type": "short",
       "color": "black"
-    },
-    "hat": {
-      "color": "yellow",
-      "type": "helmet"
     }
   },
   {
@@ -88,17 +85,17 @@
     "gender": "woman",
     "ageCategory": "adult",
     "outfit": {
-      "top": "brown",
-      "bottom": "grey",
-      "type": null
+      "topColor": "brown",
+      "bottomColor": "grey",
+      "type": null,
+      "hat": {
+        "color": "orange",
+        "type": "headband"
+      }
     },
     "hair": {
       "type": "long",
       "color": "black"
-    },
-    "hat": {
-      "color": "orange",
-      "type": "headband"
     }
   }
 ]

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.5.0",
+    "dayjs": "^1.11.5",
     "kaboom": "^2000.2.9"
   }
 }

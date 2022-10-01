@@ -1,13 +1,19 @@
+import {toReadableDate} from "../utils/readable.js";
 
-export function identity(iName, iBirthDate, iCompany, iCharacter) {
-
-    const name = iName;
-    const birthDate = iBirthDate;
-    const company = iCompany;
-    const character = iCharacter;
+export function identity(firstName, lastName, birthDate, country, character) {
 
     return {
         id: 'identity',
-    };
+        identity: {
+            firstName: firstName,
+            lastName: lastName,
+            birthDate: birthDate,
+            country: country,
+            character: character
+        },
+        presentation() {
+            return `Hi! I'm ${this.identity.firstName} ${this.identity.lastName}. I was born on ${ toReadableDate(this.identity.birthDate) } in ${ country }.`
+        }
+    }
 
 }

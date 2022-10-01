@@ -33,7 +33,7 @@ export function orderHolder(max) {
         },
 
         // Return all orders for the specified npc and remove it from current holder.
-        getOrdersFor(npc) {
+        popOrdersFor(npc) {
             const [forNpcOrders, otherOrders] = Array.partition(orders, o => o.deliveryInfo.client._id === npc._id);
             orders = otherOrders;
 
