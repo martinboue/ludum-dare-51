@@ -26,8 +26,9 @@ import {orderHolder} from "./components/orderHolder.js";
 import {spawnNpcs} from "./character.js";
 
 kaboom({
-  scale: 4,
-  font: "sink"
+    scale: 4,
+    font: "sink",
+    background: [ 166, 169, 174 ]
 });
 
 // Characters animations
