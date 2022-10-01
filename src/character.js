@@ -1,12 +1,11 @@
-import npcList from "./data/npc.json"
-import {randomItem} from "./utils.js";
+import npcList from "./data/npc.json";
 
 export function spawnNpcs() {
     // Get each spawn and select some randomly
     const spawns = get("npc_spawn").shuffle().slice(0, 50);
     return spawns.map(spawn => {
         // Choose random sprite
-        const npc = randomItem(npcList)
+        const npc = npcList.pickRandom();
 
         // Create npc
         return add([
@@ -17,6 +16,6 @@ export function spawnNpcs() {
             area({ width: 16, height: 16 }),
             origin("center"),
             "npc"
-        ])
-    })
+        ]);
+    });
 }

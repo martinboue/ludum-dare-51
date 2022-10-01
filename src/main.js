@@ -46,8 +46,8 @@ loadSpriteAtlas(charactersAtlas,
           idle_right: 9,
           right: { from: 9, to: 11, speed: 5, loop: true }
         }
-      }
-      return prev
+      };
+      return prev;
     }, {})
 );
 
@@ -89,7 +89,7 @@ const map = addLevel(levels[0], {
 });
 
 // PLAYER
-const spawn = get("spawn")[0]
+const spawn = get("spawn")[0];
 const player = add([
   sprite("male_1", { anim: "idle_bottom"}),
   pos(spawn.pos.x + 8, spawn.pos.y + 8),
@@ -119,10 +119,10 @@ player.onPushOrder((order) => {
     {
       fixed: true
     },
-  ])
+  ]);
 
   updateOrderItemList();
-})
+});
 
 onKeyPress('space', () => {
   every('building', (building) => {
@@ -137,8 +137,8 @@ onKeyPress('space', () => {
         orderDialog.showNoOrder(order);
       }
     }
-  })
-})
+  });
+});
 
 // Restaurants
 const buildings = generateBuildings();

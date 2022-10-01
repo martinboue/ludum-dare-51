@@ -27,5 +27,5 @@ export function orderHolder() {
         onPushOrder(cb) {
             this.on('push-order', cb);
         }
-    }
+    };
 }

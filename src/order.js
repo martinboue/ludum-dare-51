@@ -1,4 +1,4 @@
-import {randomItem} from "./utils.js";
+import "./utils/array.js";
 import foodList from "./data/food.json";
 import pickUpLines from "./data/pick-up-lines.json";
 
@@ -64,7 +64,7 @@ export function addDialog() {
         },
 
         showSms(author, message) {
-            this.show(sprite('phone'), `${author}: ${message}`)
+            this.show(sprite('phone'), `${author}: ${message}`);
         },
 
         showOrder(order) {
@@ -99,12 +99,12 @@ export function addDialog() {
 
 export function generateOrder() {
     // Choose random food
-    const food = randomItem(foodList);
+    const food = foodList.pickRandom();
 
     // Generate a pick up location
     const pickUpLocation = {
         pos: { x: 10, y: 10 },
-        line: randomItem(pickUpLines)
+        line: pickUpLines.pickRandom()
     };
 
     // Generate a delivery location and hint
