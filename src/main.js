@@ -2,8 +2,11 @@ import kaboom from "kaboom";
 
 // Assets
 import deliverer from "../assets/deliverer.png";
+import foodAtlas from "../assets/Spritesheet/food.png";
 import atlas from "../assets/Spritesheet/roguelikeCity_magenta.png";
-import {addDialog, generateOrder} from "./order.js";
+
+import {addDialog, generateOrder, updateItemList} from "./order.js";
+import foodList from "./food.json"
 import keyMove from "./keyMove.js";
 import {levelBackgrounds, levels} from "./levels.js";
 
@@ -52,6 +55,19 @@ loadSpriteAtlas(deliverer, {
     }
   }
 });
+
+// Food sprites
+loadSpriteAtlas(
+  foodAtlas,
+  foodList.reduce((prev, curr) => {
+    prev[curr.code] = {
+      x: 16 * curr.spriteX,
+      y: 0,
+      width: 16,
+      height: 16
+    }
+    return prev;
+  }, {}))
 
 loadSpriteAtlas(atlas, {
   "road_top": {
@@ -108,7 +124,9 @@ wait(3, () => {
     orders.push(order)
 
     // Update dialog with hint
-    orderDialog.show(order.deliveryLocation.hint)
+    orderDialog.show(order)
+
+    // Update item list
+    updateItemList(orders)
   })
 })
-

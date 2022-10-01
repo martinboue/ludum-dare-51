@@ -1,59 +1,83 @@
-import {randomBetween} from "./utils.js";
+import {randomBetween, randomItem} from "./utils.js";
 import foodList from "./food.json";
+import pickUpLines from "./pick-up-lines.json";
 
 
 
 export function addDialog() {
+    const containerMarginX = 10;
+    const containerPaddingX = 7;
+
     // Create order dialog
-    const orderDialog = add([
-        rect(width() - 40, 30),
+    const container = add([
+        rect(width() - containerMarginX * 2, 30),
         origin("center"),
         pos(center().x, height() - 20),
         outline(2),
         z(100)
     ])
 
-    // Create dialog text
-    const orderDialogText = add([
-        text("", { size: 8, width: width() - 40 }),
-        pos(orderDialog.pos),
-        color(0, 0, 0),
-        origin("center"),
+    // Create food image
+    const food = add([
+        sprite(foodList[0].code),
+        area({ width: 16, height: 16 }),
+        pos(containerMarginX + containerPaddingX, container.pos.y),
+        origin("left"),
         z(100)
     ])
 
+    // Create dialog text
+    const txt = add([
+        text("", { size: 6, width: container.width - containerPaddingX * 3 - food.area.width }),
+        pos(containerMarginX + containerPaddingX * 2 + food.area.width, container.pos.y),
+        color(0, 0, 0),
+        origin("left"),
+        z(100)
+    ])
+
+
     // Hide by default
-    orderDialog.hidden = true
-    orderDialogText.hidden = true
+    container.hidden = true
+    txt.hidden = true
+    food.hidden = true
 
     // Fix for camera
-    orderDialog.fixed = true
-    orderDialogText.fixed = true
+    container.fixed = true
+    txt.fixed = true
+    food.fixed = true
 
     return {
 
-        show(hint) {
+        show(order) {
             // Update dialog text
-            orderDialogText.text = hint
-            // Show dialog container and text
-            orderDialog.hidden = false
-            orderDialogText.hidden = false
+            txt.text = order.pickUpLocation.line
+                .replace("{hint}", order.deliveryLocation.hint)
+                .replace("{food}", order.food.name)
+            // Update food sprite
+            food.use(sprite(order.food.code))
 
-            // Hide dialog after 2 seconds
+            // Show dialog container and text
+            container.hidden = false
+            txt.hidden = false
+            food.hidden = false
+
+            // Hide dialog after x seconds
             wait(4, () => {
                 this.dismiss()
             })
         },
         dismiss() {
             // Reset dialog text
-            orderDialogText.text = ""
+            txt.text = ""
             // Hide dialog container and text
-            orderDialog.hidden = true
-            orderDialogText.hidden = true
+            container.hidden = true
+            txt.hidden = true
+            food.hidden = true
         },
         destroy() {
-            orderDialog.destroy()
-            orderDialogText.destroy()
+            container.destroy()
+            txt.destroy()
+            food.destroy()
         }
 
     }
@@ -62,24 +86,40 @@ export function addDialog() {
 
 export function generateOrder() {
     // Choose random food
-    const foodIndex = randomBetween(0, foodList.length - 1)
-    const food = foodList[foodIndex]
+    const food = randomItem(foodList)
 
     // Generate a pick up location
     const pickUpLocation = {
-        pos: { x: 10, y: 10 }
+        pos: { x: 10, y: 10 },
+        line: randomItem(pickUpLines)
     }
 
     // Generate a delivery location and hint
     const deliveryLocation = {
-        hint: "The guy with the hat.",
+        hint: "the guy with the hat", // TODO : generate hint
         pos: { x: 10, y: 10 }
     }
+
+    // Create order item
+    const item = add([
+        sprite(food.code),
+        pos(0, 0),
+        z(100)
+    ])
+    item.fixed = true
 
     // Create order
     return {
         food: food,
         pickUpLocation: pickUpLocation,
-        deliveryLocation: deliveryLocation
+        deliveryLocation: deliveryLocation,
+        item: item
     }
+}
+
+export function updateItemList(orders) {
+    const margin = 2;
+    orders.forEach((order, index) => {
+        order.item.moveTo(index * 16 + (index + 1) * margin, margin)
+    })
 }
