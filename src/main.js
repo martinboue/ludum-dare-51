@@ -1,27 +1,73 @@
 import kaboom from "kaboom";
 
 // Assets
-import ghosty from "../assets/ghosty.png";
+import atlas from "../assets/Spritesheet/roguelikeCity_magenta.png";
+import backgroundSprite from "../assets/Spritesheet/map.png";
 
-kaboom();
+kaboom({scale: 4});
 
 loadBean();
-loadSprite("ghosty", ghosty);
+loadSprite("background", backgroundSprite);
 
-const player = add([
-  sprite("bean"),   
-  pos(120, 80),
-  rotate(0),
-  area(),
-  body(),
-  origin("center"),
-  "player",
+loadSpriteAtlas(atlas, {
+  "road_top": {
+    "x": 0,
+    "y": 0,
+    "width": 16,
+    "height": 16,
+  }
+});
+
+const background = add([
+  sprite('background'),
 ]);
 
-add([
-  rect(width(), 50),
-  pos(0, height() - 50),
-  area(),
-  solid(),
-  color(125, 125, 125)
-]);
+const map = addLevel([
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "##########     #######################################################",
+  "                                                                      ",
+  "                                                                      ",
+  "                                                                      ",
+  "                                                                      ",
+  "                                                                      ",
+  "##########     #######################################################",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+  "         #     #                                                      ",
+], {
+  width: 16,
+  height: 16,
+  "#": () => [
+      area({width: 16, height: 16}),
+      solid(),
+  ]
+});
