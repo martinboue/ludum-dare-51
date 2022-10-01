@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Array.prototype.shuffle = function() {
     const positions = [...Array(this.length).keys()].sort((a, b) => 0.5 - Math.random());
@@ -12,6 +12,6 @@ Array.prototype.shuffle = function() {
 };
 
 Array.zip = function (a, b) {
-    if (a.length !== b.length) throw new Error("a and b must be the same size to be zipped")
+    if (a.length !== b.length) throw new Error("a and b must be the same size to be zipped");
     return a.map((e, i) => [e, b[i]]);
-}
+};

@@ -5,13 +5,15 @@ import "./utils/array.js";
 
 // Assets
 import deliverer from "../assets/deliverer.png";
+import foodAtlas from "../assets/Spritesheet/food.png";
 import atlas from "../assets/Spritesheet/roguelikeCity_magenta.png";
 import { levelBackgrounds, levels } from "./levels.js";
 import mcdo from '../assets/mcdo.png';
 import kfc from '../assets/kfc.png';
 
 // Components
-import { addDialog, generateOrder } from "./order.js";
+import {addDialog, generateOrder, updateItemList} from "./order.js";
+import foodList from "./food.json";
 import keyMove from "./keyMove.js";
 import { generateBuildings } from "./building.js";
 
@@ -61,6 +63,19 @@ loadSpriteAtlas(deliverer, {
   }
 });
 
+// Food sprites
+loadSpriteAtlas(
+  foodAtlas,
+  foodList.reduce((prev, curr) => {
+    prev[curr.code] = {
+      x: 16 * curr.spriteX,
+      y: 0,
+      width: 16,
+      height: 16
+    };
+    return prev;
+  }, {}));
+
 loadSpriteAtlas(atlas, {
   "road_top": {
     "x": 0,
@@ -101,26 +116,29 @@ const player = add([
 
 // Camera follow player
 player.onUpdate(() => {
-  camPos(player.pos)
+  camPos(player.pos);
 });
 
 const buildings = generateBuildings();
 
 // List of all current orders
-const orders = []
+const orders = [];
 // Create order dialog
-const orderDialog = addDialog()
+const orderDialog = addDialog();
 
 wait(3, () => {
   // Create new order every 10 seconds
   loop(10, () => {
     // Create order
-    const order = generateOrder()
+    const order = generateOrder();
 
     // Add order to the queue
-    orders.push(order)
+    orders.push(order);
 
     // Update dialog with hint
-    orderDialog.show(order.deliveryLocation.hint)
-  })
-})
+    orderDialog.show(order);
+
+    // Update item list
+    updateItemList(orders);
+  });
+});
