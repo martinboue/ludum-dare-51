@@ -1,6 +1,6 @@
 'use strict';
 
-import {orderHolder} from "./orderHolder.js";
+import {orderHolder} from "./components/orderHolder.js";
 
 export function  generateBuildings() {
     const buildingPositions = [

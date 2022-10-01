@@ -13,14 +13,14 @@ import phone from '../assets/phone.png';
 
 // Data
 import foodList from "./data/food.json";
-import npcList from "./data/npc.json";
+import npcList from "./data/characters.json";
 import orderLines from "./data/order-lines.json";
 
 // Components
 import { addDialog, generateOrder } from "./order.js";
-import keyMove from "./keyMove.js";
+import keyMove from "./components/keyMove.js";
 import {generateBuildings} from "./building.js";
-import {orderHolder} from "./orderHolder.js";
+import {orderHolder} from "./components/orderHolder.js";
 import {spawnNpcs} from "./character.js";
 
 kaboom({
