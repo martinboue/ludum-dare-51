@@ -45,7 +45,7 @@ export const identityFilters = [
         filterName: "firstNameStartsWith",
         filterFn: (clientNpc) => (npc) => npc.identity.firstName.startsWith(clientNpc.identity.firstName[0]),
         textsFn: [
-            (clientNpc) => `His first name starts with ${ clientNpc.identity.firstName[0] }.`
+            (clientNpc) => `His first name starts with "${ clientNpc.identity.firstName[0] }".`
         ]
     },
 
@@ -61,7 +61,7 @@ export const identityFilters = [
         filterName: "lastNameStartsWith",
         filterFn: (clientNpc) => (npc) => npc.identity.lastName.startsWith(clientNpc.identity.lastName[0]),
         textsFn: [
-            (clientNpc) => `His last name starts with ${ clientNpc.identity.lastName[0] }.`
+            (clientNpc) => `His last name starts with "${ clientNpc.identity.lastName[0] }".`
         ]
     },
 

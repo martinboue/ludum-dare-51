@@ -5,7 +5,7 @@
     "gender": "male",
     "ageCategory": "adult",
     "outfit": {
-      "top": "grey",
+      "topColor": "grey",
       "bottomColor": "black",
       "type": null,
       "hat": null
