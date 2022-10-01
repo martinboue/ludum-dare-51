@@ -1,8 +1,6 @@
-import {randomBetween, randomItem} from "./utils.js";
+import {randomItem} from "./utils.js";
 import foodList from "./food.json";
 import pickUpLines from "./pick-up-lines.json";
-
-
 
 export function addDialog() {
     const containerMarginX = 10;
@@ -48,13 +46,11 @@ export function addDialog() {
 
     return {
 
-        show(order) {
-            // Update dialog text
-            txt.text = order.pickUpLocation.line
-                .replace("{hint}", order.deliveryLocation.hint)
-                .replace("{food}", order.food.name);
+        show(sprite, message, timeout=5) {
+            txt.text = message;
+
             // Update food sprite
-            food.use(sprite(order.food.code));
+            food.use(sprite);
 
             // Show dialog container and text
             container.hidden = false;
@@ -62,10 +58,28 @@ export function addDialog() {
             food.hidden = false;
 
             // Hide dialog after x seconds
-            wait(4, () => {
+            wait(timeout, () => {
                 this.dismiss();
             });
         },
+
+        showSms(author, message) {
+            this.show(sprite('phone'), `${author}: ${message}`)
+        },
+
+        showOrder(order) {
+            const text = order.pickUpLocation.line
+                .replace("{hint}", order.deliveryLocation.hint)
+                .replace("{food}", order.food.name)
+            ;
+
+            this.show(sprite(order.food.code), text);
+        },
+
+        showNoOrder() {
+            this.show(sprite('phone'), 'No order', 2);
+        },
+
         dismiss() {
             // Reset dialog text
             txt.text = "";
@@ -83,7 +97,6 @@ export function addDialog() {
     };
 }
 
-
 export function generateOrder() {
     // Choose random food
     const food = randomItem(foodList);
@@ -100,26 +113,18 @@ export function generateOrder() {
         pos: { x: 10, y: 10 }
     };
 
-    // Create order item
-    const item = add([
-        sprite(food.code),
-        pos(0, 0),
-        z(100)
-    ]);
-    item.fixed = true;
-
     // Create order
     return {
         food: food,
         pickUpLocation: pickUpLocation,
         deliveryLocation: deliveryLocation,
-        item: item
     };
 }
 
-export function updateItemList(orders) {
+export function updateOrderItemList() {
     const margin = 2;
-    orders.forEach((order, index) => {
-        order.item.moveTo(index * 16 + (index + 1) * margin, margin);
+    const orderItems = get('orderItem');
+    orderItems.forEach((orderItem, index) => {
+        orderItem.moveTo(index * 16 + (index + 1) * margin, margin);
     });
 }

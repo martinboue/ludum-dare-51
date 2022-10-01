@@ -6,16 +6,17 @@ import "./utils/array.js";
 // Assets
 import deliverer from "../assets/deliverer.png";
 import foodAtlas from "../assets/Spritesheet/food.png";
-import atlas from "../assets/Spritesheet/roguelikeCity_magenta.png";
-import { levelBackgrounds, levels } from "./levels.js";
+import {levelBackgrounds, levels} from "./levels.js";
 import mcdo from '../assets/mcdo.png';
 import kfc from '../assets/kfc.png';
+import phone from '../assets/phone.png';
 
 // Components
-import {addDialog, generateOrder, updateItemList} from "./order.js";
+import {addDialog, generateOrder, updateOrderItemList} from "./order.js";
 import foodList from "./food.json";
 import keyMove from "./keyMove.js";
-import { generateBuildings } from "./building.js";
+import {generateBuildings} from "./building.js";
+import {orderHolder} from "./orderHolder.js";
 
 kaboom({
   scale: 4,
@@ -76,19 +77,12 @@ loadSpriteAtlas(
     return prev;
   }, {}));
 
-loadSpriteAtlas(atlas, {
-  "road_top": {
-    "x": 0,
-    "y": 0,
-    "width": 16,
-    "height": 16,
-  }
-});
-
 loadSprite("levelBackground", levelBackgrounds[0]);
 
 loadSprite('mcdo', mcdo);
 loadSprite('kfc', kfc);
+
+loadSprite('phone', phone);
 
 const background = add([
   sprite("levelBackground"),
@@ -111,6 +105,7 @@ const player = add([
   area({ width: 16, height: 16 }),
   origin("center"),
   keyMove(200),
+  orderHolder(),
   "deliverer",
 ]);
 
@@ -119,10 +114,42 @@ player.onUpdate(() => {
   camPos(player.pos);
 });
 
+// When player pick order
+player.onPushOrder((order) => {
+
+  // Create order item
+  add([
+    sprite(order.food.code),
+    pos(0, 0),
+    z(100),
+    'orderItem',
+    {
+      fixed: true
+    },
+  ])
+
+  updateOrderItemList();
+})
+
+onKeyPress('space', () => {
+  every('building', (building) => {
+    if (player.isTouching(building)) {
+      // Take first order of the building
+      const order = building.pollOrder();
+      if (order) {
+        orderDialog.showOrder(order);
+        player.pushOrder(order);
+      } else {
+        shake(1);
+        orderDialog.showNoOrder(order);
+      }
+    }
+  })
+})
+
+// Restaurants
 const buildings = generateBuildings();
 
-// List of all current orders
-const orders = [];
 // Create order dialog
 const orderDialog = addDialog();
 
@@ -132,13 +159,11 @@ wait(3, () => {
     // Create order
     const order = generateOrder();
 
-    // Add order to the queue
-    orders.push(order);
+    // Pick random restaurant
+    const building = buildings.shuffle()[0];
+    building.pushOrder(order);
 
     // Update dialog with hint
-    orderDialog.show(order);
-
-    // Update item list
-    updateItemList(orders);
+    orderDialog.showSms(building.name, 'order for you');
   });
 });

@@ -1,5 +1,7 @@
 'use strict';
 
+import {orderHolder} from "./orderHolder.js";
+
 export function  generateBuildings() {
     const buildingPositions = [
         pos(304, 16),
@@ -20,11 +22,16 @@ export function  generateBuildings() {
     return Array.zip(buildingInfos, buildingPositions).map(([info, posComp]) =>
         add([
             area(),
+            solid(),
             posComp,
             info.sprite,
             info.color,
+            info.name, // To use name has tag
+            orderHolder(),
             "building",
-            info.name,
+            {
+                name: info.name
+            }
         ])
     );
 }
