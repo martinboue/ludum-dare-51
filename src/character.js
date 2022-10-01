@@ -11,7 +11,8 @@ export function spawnNpcs() {
         const character = characters.pickRandom();
 
         // Choose random name
-        const name = faker.name.fullName({ sex: character.gender });
+        const firstName = faker.name.firstName(character.gender);
+        const lastName = faker.name.lastName(character.gender);
 
         // Choose random age
         const birthDate = faker.date.birthdate({ ...getAgeRange(character.ageCategory), mode: "age" });
@@ -27,8 +28,8 @@ export function spawnNpcs() {
             solid(),
             area({ width: 16, height: 16 }),
             origin("center"),
-            talk(name),
-            identity(name, birthDate, company, character),
+            talk(firstName + " " + lastName),
+            identity(firstName, lastName, birthDate, company, character),
             "npc"
         ]);
     });

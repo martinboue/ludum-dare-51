@@ -1,6 +1,6 @@
 import "./utils/array.js";
 import foodList from "./data/food.json";
-import pickUpLines from "./data/pick-up-lines.json";
+import {identityFilters, uniqueIdentityFilter} from "./identityFilters.js";
 
 export function addDialog() {
     const containerMarginX = 10;
@@ -46,7 +46,7 @@ export function addDialog() {
 
     return {
 
-        show(sprite, message, timeout=5) {
+        show(sprite, message, timeout= 5) {
             txt.text = message;
 
             // Update food sprite
@@ -68,12 +68,7 @@ export function addDialog() {
         },
 
         showOrder(order) {
-            const text = order.pickUpLocation.line
-                .replace("{hint}", order.deliveryInfo.hint)
-                .replace("{food}", order.food.name)
-            ;
-
-            this.show(sprite(order.food.code), text);
+            this.show(sprite(order.food.code), order.deliveryInfo.hint);
         },
 
         showNoOrder() {
@@ -103,14 +98,16 @@ export function generateOrder(npcList) {
 
     // Generate a pick up location
     const pickUpLocation = {
-        pos: { x: 10, y: 10 },
-        line: pickUpLines.pickRandom()
+        pos: { x: 10, y: 10 }
     };
 
-    // Generate a delivery location and hint
+    // Select a NPC client
+    const client = npcList.pickRandom();
+
+    // Generate hint to target this client
     const deliveryInfo = {
-        hint: "the guy with the hat", // TODO : generate hint
-        client: npcList.pickRandom()
+        hint: generateHints(client, npcList).join(" "),
+        client: client
     };
 
     // Create order
@@ -119,4 +116,38 @@ export function generateOrder(npcList) {
         pickUpLocation: pickUpLocation,
         deliveryInfo: deliveryInfo,
     };
+}
+
+function generateHints(client, npcs) {
+    const remainingFilters = [...identityFilters].shuffle();
+
+    let selectedFilters = [];
+
+    // As long as the filters used do not target ONLY the client
+    while (applyFilterList(client, npcs, selectedFilters).length > 1) {
+        // Choose a filter randomly
+        const filter = remainingFilters.pop();
+
+        if (filter) {
+            // Add filter to list of selected
+            selectedFilters.push(filter)
+        } else {
+            // Use unique filter instead
+            selectedFilters = [uniqueIdentityFilter]
+        }
+    }
+
+    // Convert all selected filters to readable hints
+    return selectedFilters.map(filter => {
+        // Each filter has many functions to translate to readable hint
+        // We choose one randomly
+        const textFn = filter.textsFn.pickRandom();
+        return textFn(client)
+    });
+}
+
+function applyFilterList(client, npcs, filters) {
+    return npcs.filter(npc => {
+        return filters.every(filter => filter.filterFn(client)(npc))
+    })
 }

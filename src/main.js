@@ -157,7 +157,7 @@ onKeyPress('space', () => {
 
   every('npc', (npc) => {
     if (player.isTouching(npc)) {
-      const orders = player.getOrdersFor(npc);
+      const orders = player.popOrdersFor(npc);
 
       orders.forEach(o => {
           npc.say("Thank for the order !");
