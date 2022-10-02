@@ -21,19 +21,25 @@ export function addScore() {
             score: 0,
             addScoreForOrder(order) {
                 const points = computerOrderScore(order);
-                this.score += points;
-                this.text = getScoreText(this.score);
+                this.updateScore(points);
 
                 return points;
             },
+            decreaseScore(points) {
+                this.updateScore(-points)
+            },
+            updateScore(points) {
+                this.score += points
+                this.text = getScoreText(this.score);
+            }
         }
     ]);
 }
 
-export function addPoints(points, position) {
+export function showPoints(points, deliverer) {
     return add([
-        text('+'+points, {size: 6}),
-        pos(position),
+        text((points >= 0 ? '+' : '') + points, {size: 6}),
+        pos(vec2(deliverer.pos.x, deliverer.pos.y - 10)),
         color(255,215,0),
         origin("center"),
         opacity(1),
@@ -46,6 +52,6 @@ export function addPoints(points, position) {
                 }
             }
         },
-        z(20),
+        z(110),
     ]);
 }

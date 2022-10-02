@@ -28,14 +28,15 @@ import {orderHolder} from "./components/orderHolder.js";
 import {spawnNpcs} from "./character.js";
 import {elasped} from "./components/elasped.js";
 import {addGlobalDialog} from "./globalDialog.js";
-import {addPoints, addScore} from "./score.js";
+import {showPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // seconds
+const EXPLORATION_TIME = 1; // seconds
 const NEW_ORDER_TIME = 10; // seconds
-const DELIVERY_TIME = 10; // seconds
+const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 20;
+const WRONG_NPC_POINTS = 10;
 
 kaboom({
     scale: 4,
@@ -296,11 +297,17 @@ onKeyPress(['space', 'enter'], () => {
         if (deliverer.isTouching(npc)) {
             const orders = deliverer.popOrdersFor(npc);
 
-            orders.forEach(o => {
-                npc.say("Thanks for the order!");
-                const points = score.addScoreForOrder(o);
-                addPoints(points, vec2(deliverer.pos.x, deliverer.pos.y - 25));
-            });
+            if (orders.length > 0) {
+                orders.forEach(o => {
+                    npc.say("Thanks for the order!");
+                    const points = score.addScoreForOrder(o);
+                    showPoints(points, deliverer);
+                });
+            } else {
+                npc.say("No, this is not my order.")
+                score.decreaseScore(WRONG_NPC_POINTS)
+                showPoints(WRONG_NPC_POINTS, deliverer)
+            }
         }
     });
 });
