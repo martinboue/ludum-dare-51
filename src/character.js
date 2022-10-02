@@ -10,19 +10,26 @@ export function spawnNpcs(deliverer) {
 
     const configName = { dictionaries: [names] };
     const generatedNames = [];
+    const generatedSkinStrings = [];
 
     return spawns.map(spawn => {
-        // Choose random skin
-        const skinNpc = {
-            hair: skins.hair.pickRandom(),
-            top: skins.top.pickRandom(),
-            bottom: skins.bottom.pickRandom()
-        };
+        // Choose random skin until it's unique
+        let skinString = null;
+        let skinNpc = null;
+        while (skinString == null || generatedSkinStrings.indexOf(skinString) !== -1) {
+            skinNpc = {
+                hair: skins.hair.pickRandom(),
+                top: skins.top.pickRandom(),
+                bottom: skins.bottom.pickRandom()
+            }
+            skinString = JSON.stringify(skinNpc);
+        }
+        generatedSkinStrings.push(skinString)
 
         // Choose random name until it's unique
-        let name = uniqueNamesGenerator(configName);
-        while (generatedNames.indexOf(name) !== -1) {
-            name = uniqueNamesGenerator(configName);
+        let name = null;
+        while (name == null || generatedNames.indexOf(name) !== -1) {
+            name = uniqueNamesGenerator(configName)
         }
         generatedNames.push(name);
 
