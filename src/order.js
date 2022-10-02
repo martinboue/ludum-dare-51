@@ -13,7 +13,7 @@ export function generateOrder(npcs) {
     const hints = generateHints(client, npcs)
     let hintPhrase = "He has ";
     if (hints.length > 1) {
-        hintPhrase += hints.slice(0, hints.length - 2).join(", ") + " and ";
+        hintPhrase += hints.slice(0, -1).join(", ") + " and ";
     }
     hintPhrase += hints[hints.length - 1] + ".";
 
@@ -49,7 +49,7 @@ function generateHints(client, npcs) {
     let selectedFilters = [];
 
     // As long as the filters used do not target ONLY the client
-    while (filtersMatch(client, npcs, selectedFilters)) {
+    while (selectedFilters.length < 1 || filtersMatch(client, npcs, selectedFilters)) {
         // Choose a filter randomly
         const filter = remainingFilters.pop();
 

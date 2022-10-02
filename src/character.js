@@ -5,9 +5,9 @@ import {uniqueNamesGenerator, names} from "unique-names-generator";
 import {skin} from "./components/skin.js";
 import {autoMove} from "./components/autoMove.js";
 
-export function spawnNpcs(deliverer) {
+export function spawnNpcs(deliverer, nbNpcs) {
     // Get each spawn and select some randomly
-    const spawns = get("npc_spawn").shuffle().slice(0, 20);
+    const spawns = get("npc_spawn").shuffle().slice(0, nbNpcs);
 
     const configName = { dictionaries: [names] };
     const generatedNames = [];

@@ -32,7 +32,9 @@ import {addPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // 30s
+const EXPLORATION_TIME = 1; // seconds
+const NEW_ORDER_TIME = 11; // seconds
+const NB_NPC = 20;
 
 kaboom({
     scale: 4,
@@ -174,7 +176,7 @@ const globalDialog = addGlobalDialog();
 const buildings = generateBuildings(deliverer);
 
 // NPCs
-spawnNpcs(deliverer).forEach(npc => {
+spawnNpcs(deliverer, NB_NPC).forEach(npc => {
     npc.onCollide("deliverer", () => {
         npc.say(npc.identity.greeting);
     });
@@ -209,7 +211,7 @@ const orderTimer = add([
 
 // Exploration timer
 add([
-    text('Explore !', {size: 12}),
+    text('Get ready for deliveries!', {size: 12}),
     pos(center().x - 12, center().y - 25),
     origin('center'),
     fixed(),
@@ -309,7 +311,7 @@ const start = () => {
     score.hidden = false;
 
     // Create new order every 10 seconds
-    loop(11, () => {
+    loop(NEW_ORDER_TIME, () => {
         // Pick random restaurant (only those with a place for an order)
         const notFullBuildings = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullBuildings)) {

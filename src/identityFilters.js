@@ -1,6 +1,3 @@
-import {
-    toReadableHatType,
-} from "./utils/readable.js";
 
 export const uniqueIdentityFilter = {
     filterName: "name",
