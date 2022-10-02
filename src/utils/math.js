@@ -1,5 +1,17 @@
+
 /**
- * Get random number between min and max included
+ * Get random float between min included and max not included
+ *
+ * @param min
+ * @param max
+ * @returns {number}
+ */
+Math.randomFloatBetween = function (min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+/**
+ * Get random integer between min and max included
  * @param min
  * @param max
  * @returns {number}

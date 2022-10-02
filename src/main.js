@@ -55,11 +55,18 @@ loadSpriteAtlas(delivererAtlas, {
     npc: {
         x: 0,
         y: 0,
-        width: 16,
-        height: 16
+        width: 16 * 4,
+        height: 16,
+        sliceX: 4,
+        anims: {
+            idle_left: 0,
+            idle_bottom: 1,
+            idle_top: 2,
+            idle_right: 3,
+        }
     },
     deliverer: {
-        x: 16,
+        x: 64,
         y: 0,
         width: 16 * 12,
         height: 16,
@@ -82,23 +89,23 @@ loadSpriteAtlas(skinsAtlas, {
     top: {
         x: 0,
         y: 0,
-        width: 16 * 6,
+        width: 16 * 6 * 4,
         height: 16,
-        sliceX: 6
+        sliceX: 6 * 4,
     },
     bottom: {
         x: 0,
         y: 16,
-        width: 16 * 6,
+        width: 16 * 6 * 4,
         height: 16,
-        sliceX: 6
+        sliceX: 6 * 4
     },
     hair: {
         x: 0,
         y: 32,
-        width: 16 * 6,
+        width: 16 * 6 * 4,
         height: 16,
-        sliceX: 6
+        sliceX: 6 * 4
     }
 });
 

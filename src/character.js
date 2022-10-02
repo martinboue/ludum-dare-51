@@ -3,6 +3,7 @@ import talk from "./components/talk.js";
 import {identity} from "./components/identity.js";
 import {uniqueNamesGenerator, names} from "unique-names-generator";
 import {skin} from "./components/skin.js";
+import {autoMove} from "./components/autoMove.js";
 
 export function spawnNpcs(deliverer) {
     // Get each spawn and select some randomly
@@ -35,7 +36,7 @@ export function spawnNpcs(deliverer) {
 
         // Create npc
         return add([
-            sprite("npc"),
+            sprite("npc", { frame: 0 }),
             pos(spawn.pos.x + 8, spawn.pos.y + 8),
             rotate(0),
             solid(),
@@ -48,6 +49,7 @@ export function spawnNpcs(deliverer) {
                 skins.top.indexOf(skinNpc.top),
                 skins.bottom.indexOf(skinNpc.bottom)
             ),
+            autoMove(["idle_left", "idle_bottom", "idle_top", "idle_right"]),
             "npc"
         ]);
     });
