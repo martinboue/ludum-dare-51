@@ -10,10 +10,6 @@ import skinsAtlas from "../assets/sprites/skins.png";
 import foodAtlas from "../assets/sprites/food.png";
 import inputsAtlas from "../assets/sprites/inputs.png";
 import {levelBackgrounds, levels} from "./levels.js";
-import mcdo from '../assets/mcdo.png';
-import kfc from '../assets/kfc.png';
-import michelNina from '../assets/michel&nina.png';
-import kebab56 from '../assets/kebab56.png';
 import phone from '../assets/phone.png';
 
 // Data
@@ -129,11 +125,6 @@ loadSpriteAtlas(
 
 // BACKGROUND
 loadSprite("levelBackground", levelBackgrounds[0]);
-
-loadSprite('mcdo', mcdo);
-loadSprite('kfc', kfc);
-loadSprite('michel&nina', michelNina);
-loadSprite('kebab56', kebab56);
 
 loadSprite('phone', phone);
 
