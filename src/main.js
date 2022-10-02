@@ -37,6 +37,7 @@ const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
 const WRONG_NPC_POINTS = 10;
+const PLAYER_SPEED = 150; // pixel/seconds
 
 kaboom({
     scale: 4,
@@ -77,13 +78,13 @@ loadSpriteAtlas(delivererAtlas, {
         sliceX: 12,
         anims: {
             idle_left: 0,
-            left: { from: 0, to: 2, speed: 5, loop: true },
+            left: { from: 0, to: 2, speed: 10, loop: true },
             idle_bottom: 3,
-            bottom: { from: 3, to: 5, speed: 5, loop: true },
+            bottom: { from: 3, to: 5, speed: 10, loop: true },
             idle_top: 6,
-            top: { from: 6, to: 8, speed: 5, loop: true },
+            top: { from: 6, to: 8, speed: 10, loop: true },
             idle_right: 9,
-            right: { from: 9, to: 11, speed: 5, loop: true }
+            right: { from: 9, to: 11, speed: 10, loop: true }
         }
     }
 });
@@ -167,9 +168,9 @@ const deliverer = add([
   pos(spawn.pos.x + 8, spawn.pos.y + 8),
   rotate(0),
   solid(),
-  area({ width: 12, height: 16 }),
-  origin("center"),
-  keyMove(200, globalHelper),
+  area({ width: 12, height: 12 }),
+  origin("bot"),
+  keyMove(PLAYER_SPEED, globalHelper),
   orderHolder(2),
   "deliverer",
 ]);
