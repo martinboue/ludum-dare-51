@@ -11,21 +11,25 @@ export default function keyMove(deliverSpeed) {
                     this.play(animationName);
                 }
             };
-            onKeyPress("right", () => this.play("right"));
-            onKeyDown("right", () => this.move(deliverSpeed, 0));
-            onKeyRelease("right", () => releaseMovement("idle_right"));
+            const keysRight = ["right", "d"]
+            onKeyPress(keysRight, () => this.play("right"));
+            onKeyDown(keysRight, () => this.move(deliverSpeed, 0));
+            onKeyRelease(keysRight, () => releaseMovement("idle_right"));
 
-            onKeyPress("left", () => this.play("left"));
-            onKeyDown("left", () => this.move(-deliverSpeed, 0));
-            onKeyRelease("left", () => releaseMovement("idle_left"));
+            const keysLeft = ["left", "q", "a"]
+            onKeyPress(keysLeft, () => this.play("left"));
+            onKeyDown(keysLeft, () => this.move(-deliverSpeed, 0));
+            onKeyRelease(keysLeft, () => releaseMovement("idle_left"));
 
-            onKeyPress("up", () => this.play("top"));
-            onKeyDown("up", () => this.move(0, -deliverSpeed));
-            onKeyRelease("up", () => releaseMovement("idle_top"));
+            const keysUp = ["up", "z", "w"]
+            onKeyPress(keysUp, () => this.play("top"));
+            onKeyDown(keysUp, () => this.move(0, -deliverSpeed));
+            onKeyRelease(keysUp, () => releaseMovement("idle_top"));
 
-            onKeyPress("down", () => this.play("bottom"));
-            onKeyDown("down", () => this.move(0, deliverSpeed));
-            onKeyRelease("down", () => releaseMovement("idle_bottom"));
+            const keysDown = ["down", "s"]
+            onKeyPress(keysDown, () => this.play("bottom"));
+            onKeyDown(keysDown, () => this.move(0, deliverSpeed));
+            onKeyRelease(keysDown, () => releaseMovement("idle_bottom"));
         }
     };
 }

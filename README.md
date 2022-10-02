@@ -1,6 +1,6 @@
 # Ludum Dare 51
 
-## TODO:
+## Features
 - Martin
   - Simplify hints
   - Better map
@@ -9,7 +9,14 @@
   - Score + game over condition + restart game
   - NPC for restaurant + associated food
 - Other
-  - Tutorial + home screen 
+  - Tutorial + home screen
   - Animate NPC
   - Helper "Space to interact"
   - Music (main theme) + SFX
+
+## Bugs 
+- Animation quand effonce et relache une touche de déplacement rapidement
+- Se déplace plus vite en diagonale
+- Mauvaise orientation si plusieurs déplacements en même temps
+- Les dialogs qui disparaissent
+- Se déplacer plus vite en appuyant sur flèche du haut et Z en même temps

@@ -141,7 +141,7 @@ const refreshOrderItems = () => {
 deliverer.onPushOrder(refreshOrderItems);
 deliverer.onPollOrder(refreshOrderItems);
 
-onKeyPress('space', () => {
+onKeyPress(['space', 'enter'], () => {
   every('building', (building) => {
     if (deliverer.isTouching(building)) {
         // Take first order of the building (we don't delete it right now in cas the player can't take it)
