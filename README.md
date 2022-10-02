@@ -2,17 +2,16 @@
 
 ## Features
 - Martin
-  - Simplify hints
   - Better map
-  - Unique NPC using sprite merge
 - Thomas
   - ✔ Score + game over condition + restart game
   - NPC for restaurant + associated food
 - Other
+  - Show waiting orders
   - Tutorial + home screen
-  - Animate NPC
-  - Helper "Space to interact"
   - Music (main theme) + SFX
+  - Logo
+  - Itch.io page & ludum dare page
 
 ## Bugs 
 - Animation quand effonce et relache une touche de déplacement rapidement
