@@ -4,12 +4,14 @@ export function addGlobalHelper() {
         fixed(),
         pos(center().x, height() - 20),
         origin("center"),
+        z(50)
     ])
     const txt = add([
         text("", { size: 5 }),
         fixed(),
         pos(center().x, height() - 20),
-        origin("left")
+        origin("left"),
+        z(50)
     ])
     icon.hidden = true;
     txt.hidden = true;
