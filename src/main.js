@@ -34,6 +34,7 @@ import {addGlobalHelper} from "./globalHelper.js";
 // GAME CONSTANTS
 const EXPLORATION_TIME = 30; // seconds
 const NEW_ORDER_TIME = 10; // seconds
+const DELIVERY_TIME = 10; // seconds
 const NB_NPC = 20;
 
 kaboom({
@@ -316,7 +317,7 @@ const start = () => {
         const notFullBuildings = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullBuildings)) {
           const building = notFullBuildings.shuffle()[0];
-          building.pushOrder(generateOrder(get('npc')));
+          building.pushOrder(generateOrder(get('npc'), DELIVERY_TIME));
 
           // Update globalDialog with hint
           globalDialog.show(building.name, orderLines.pickRandom());

@@ -2,7 +2,7 @@ import "./utils/array.js";
 import foodList from "./data/food.json";
 import {identityFilters, uniqueIdentityFilter} from "./identityFilters.js";
 
-export function generateOrder(npcs) {
+export function generateOrder(npcs, deliveryDelay) {
     // Choose random food
     const food = foodList.pickRandom();
 
@@ -21,9 +21,6 @@ export function generateOrder(npcs) {
         hint: hintPhrase,
         client: client
     };
-
-    // 30s to deliver order
-    const deliveryDelay = 30;
 
     // Create order
     return {
@@ -91,13 +88,14 @@ export function addOrderItem(order, index) {
 
             draw() {
                 // Hint: we don't use comp text to be able to use different color for text
+                const time = order.getRemainingTime()
                 drawText({
-                    text: order.getRemainingTime(),
+                    text: time,
                     font: "sink",
                     pos: vec2(0, 14),
                     origin: "center",
                     fixed: true,
-                    color: rgb(255, 255, 255),
+                    color: time > 5 ? rgb(255, 255, 255) : rgb(255, 0, 0),
                 });
             },
         },
