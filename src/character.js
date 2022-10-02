@@ -1,7 +1,8 @@
-import characters from "./data/characters.json";
+import skins from "./data/skins.json";
 import talk from "./components/talk.js";
 import {identity} from "./components/identity.js";
 import {uniqueNamesGenerator, names} from "unique-names-generator";
+import {skin} from "./components/skin.js";
 
 export function spawnNpcs(deliverer) {
     // Get each spawn and select some randomly
@@ -11,8 +12,12 @@ export function spawnNpcs(deliverer) {
     const generatedNames = [];
 
     return spawns.map(spawn => {
-        // Choose random character (sprite)
-        const character = characters.pickRandom();
+        // Choose random skin
+        const skinNpc = {
+            hair: skins.hair.pickRandom(),
+            top: skins.top.pickRandom(),
+            bottom: skins.bottom.pickRandom()
+        }
 
         // Choose random name until it's unique
         let name = uniqueNamesGenerator(configName)
@@ -23,14 +28,19 @@ export function spawnNpcs(deliverer) {
 
         // Create npc
         return add([
-            sprite(character.code, { anim: "idle_bottom"}),
+            sprite("npc"),
             pos(spawn.pos.x + 8, spawn.pos.y + 8),
             rotate(0),
             solid(),
             area({ width: 16, height: 16 }),
             origin("center"),
             talk(deliverer),
-            identity(name, character),
+            identity(name, skinNpc),
+            skin(
+                skins.hair.indexOf(skinNpc.hair),
+                skins.top.indexOf(skinNpc.top),
+                skins.bottom.indexOf(skinNpc.bottom)
+            ),
             "npc"
         ]);
     });

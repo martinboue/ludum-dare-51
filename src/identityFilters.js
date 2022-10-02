@@ -15,7 +15,7 @@ export const uniqueIdentityFilter = {
  */
 export const identityFilters = [
 
-    //// Identity
+    //// IDENTITY
     {
         filterName: "nameStartsWith",
         filterFn: (clientNpc) => (npc) => npc.identity.name.startsWith(clientNpc.identity.name[0]),
@@ -24,54 +24,36 @@ export const identityFilters = [
         ]
     },
 
-    //// Character
-    // Gender
-    {
-        filterName: "characterGender",
-        filterFn: (clientNpc) => (npc) => npc.identity.character.gender === clientNpc.identity.character.gender,
-        textsFn: [
-            (clientNpc) => clientNpc.identity.character.gender === "female" ? "She is a woman." : "He is a man."
-        ]
-    },
-
+    //// SKIN
     // Outfit
     {
-        filterName: "characterOutfitTopColor",
-        filterFn: (clientNpc) => (npc) => npc.identity.character.outfit.topColor === clientNpc.identity.character.outfit.topColor,
+        filterName: "skinTopColor",
+        filterFn: (clientNpc) => (npc) => npc.identity.skin.top === clientNpc.identity.skin.top,
         textsFn: [
-            (clientNpc) => `His T-shirt is ${ clientNpc.identity.character.outfit.topColor }.`
+            (clientNpc) => `His T-shirt is ${ clientNpc.identity.skin.top }.`
         ]
     },
     {
-        filterName: "characterOutfitBottomColor",
-        filterFn: (clientNpc) => (npc) => npc.identity.character.outfit.bottomColor === clientNpc.identity.character.outfit.bottomColor,
+        filterName: "skinBottomColor",
+        filterFn: (clientNpc) => (npc) => npc.identity.skin.bottom === clientNpc.identity.skin.bottom,
         textsFn: [
-            (clientNpc) => `His trousers are ${ clientNpc.identity.character.outfit.bottomColor }.`
-        ]
-    },
-
-    // Hat
-    {
-        filterName: "characterOutfitHatType",
-        filterFn: (clientNpc) => (npc) => npc.identity.character.outfit.hat?.type === clientNpc.identity.character.outfit.hat?.type,
-        textsFn: [
-            (clientNpc) => `He has ${ toReadableHatType(clientNpc.identity.character.outfit.hat?.type) }.`
+            (clientNpc) => `His trousers are ${ clientNpc.identity.skin.bottom }.`
         ]
     },
 
     // Hair
     {
-        filterName: "characterHairType",
-        filterFn: (clientNpc) => (npc) => npc.identity.character.hair?.type === clientNpc.identity.character.hair?.type,
+        filterName: "skinHairType",
+        filterFn: (clientNpc) => (npc) => npc.identity.skin.hair?.type === clientNpc.identity.skin.hair?.type,
         textsFn: [
-            (clientNpc) => clientNpc.identity.character.hair?.type ? `He has ${ clientNpc.identity.character.hair.type } hair.` : `He is bald.`
+            (clientNpc) => clientNpc.identity.skin.hair?.type ? `He has ${ clientNpc.identity.skin.hair.type } hair.` : `He is bald.`
         ]
     },
     {
-        filterName: "characterHairColor",
-        filterFn: (clientNpc) => (npc) => npc.identity.character.hair?.color === clientNpc.identity.character.hair?.color,
+        filterName: "skinHairColor",
+        filterFn: (clientNpc) => (npc) => npc.identity.skin.hair?.color === clientNpc.identity.skin.hair?.color,
         textsFn: [
-            (clientNpc) => clientNpc.identity.character.hair?.color ? `He has ${ clientNpc.identity.character.hair.color } hair.` : `He is bald.`
+            (clientNpc) => clientNpc.identity.skin.hair?.color ? `He has ${ clientNpc.identity.skin.hair.color } hair.` : `He is bald.`
         ]
     }
 ]

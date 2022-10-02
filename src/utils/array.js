@@ -1,5 +1,7 @@
 'use strict';
 
+import './math.js'
+
 Array.prototype.shuffle = function() {
     const positions = [...Array(this.length).keys()].sort((a, b) => Math.random() - Math.random());
     const result = [];
@@ -27,7 +29,7 @@ Array.partition = (array, condition) => {
 };
 
 Array.prototype.pickRandom = function() {
-    return this.shuffle()[0];
+    return this[Math.randomBetween(0, this.length - 1)];
 };
 
 Array.zip = function (a, b) {

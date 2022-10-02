@@ -1,12 +1,12 @@
 import greetings from "../data/greetings"
 
-export function identity(name, character) {
+export function identity(name, skin) {
 
     return {
         id: 'identity',
         identity: {
             name: name,
-            character: character,
+            skin: skin,
             greeting: greetings.pickRandom().replace("{name}", name)
         }
     }
