@@ -94,7 +94,7 @@ export function addOrderItem(order, index) {
                 drawText({
                     text: order.getRemainingTime(),
                     font: "sink",
-                    pos: vec2(0, 0),
+                    pos: vec2(0, 14),
                     origin: "center",
                     fixed: true,
                     color: rgb(255, 255, 255),
