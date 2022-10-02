@@ -100,10 +100,6 @@ export function addOrderItem(order, index) {
                     color: rgb(255, 255, 255),
                 });
             },
-
-            onOrderExpired(cb) {
-                this.on('order-expired', () => cb());
-            }
         },
     ]);
 }

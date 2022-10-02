@@ -32,7 +32,7 @@ import {addPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // 30s
+const EXPLORATION_TIME = 1; // 30s
 
 kaboom({
     scale: 4,
@@ -258,8 +258,8 @@ const refreshOrderItems = () => {
     // Create order item
     deliverer.getOrders().map((order, index) => addOrderItem(order, index));
 
-    on('order-expired', 'orderItem', () => {
-        // TODO: Decrease "life" + Game over
+    on('order-expired', 'orderItem', (orderItem, order) => {
+        deliverer.removeOrder(order);
     });
 };
 

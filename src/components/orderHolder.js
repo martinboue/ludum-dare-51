@@ -56,6 +56,10 @@ export function orderHolder(max) {
 
         onPollOrder(cb) {
             this.on('poll-order', cb);
-        }
+        },
+
+        removeOrder(order) {
+          orders = orders.filter(o => o !== order);
+        },
     };
 }
