@@ -12,9 +12,8 @@ export function addScore() {
     };
 
     return add([
-        text(getScoreText(0), {size: 12}),
-        pos(center().x - 12, 24),
-        color(255,215,0),
+        text(getScoreText(0), { size: 10, font: "sinko" }),
+        pos(center().x, 14),
         fixed(),
         origin("center"),
         {

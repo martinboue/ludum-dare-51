@@ -32,7 +32,7 @@ import {showPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // seconds
+const EXPLORATION_TIME = 1; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
@@ -204,14 +204,14 @@ const score = addScore();
 
 // Order timer
 const orderTimer = add([
-    text(''),
-    pos(width() - 100, 12),
+    text('', { size: 8, font: "sinko" }),
+    pos(width() - 12, 12),
+    origin("right"),
     fixed(),
     elasped(1, function () {
         this.text = `Next order in ${this.remainingTime}`;
         this.remainingTime -= 1;
     }, () => {}, false),
-    color(0, 0, 0),
     {
         remainingTime: NEW_ORDER_TIME,
     }
@@ -219,19 +219,18 @@ const orderTimer = add([
 
 // Exploration timer
 add([
-    text('Get ready for deliveries!', {size: 12}),
-    pos(center().x - 12, center().y - 25),
+    text('Explore the city!', { size: 10, font: "sinko" }),
+    pos(center().x, center().y - 30),
     origin('center'),
     fixed(),
-    color(0, 0, 0),
     elasped(3, function () {
         destroy(this);
     }),
 ]);
 
 add([
-    text('', {size: 12}),
-    pos(center().x - 12, center().y - 50),
+    text('', { size: 12, font: "sinko" }),
+    pos(center().x, center().y - 50),
     fixed(),
     origin("center"),
     elasped(1, function () {
@@ -248,7 +247,6 @@ add([
         orderTimer.hidden = true;
         score.hidden = true;
     }),
-    color(0, 0, 0),
     {
         remainingTime: EXPLORATION_TIME,
     }
