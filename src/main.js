@@ -297,7 +297,7 @@ onKeyPress(['space', 'enter'], () => {
             const orders = deliverer.popOrdersFor(npc);
 
             orders.forEach(o => {
-                npc.say("Thank for the order !");
+                npc.say("Thanks for the order!");
                 const points = score.addScoreForOrder(o);
                 addPoints(points, vec2(deliverer.pos.x, deliverer.pos.y - 25));
             });

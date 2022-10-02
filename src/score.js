@@ -45,6 +45,7 @@ export function addPoints(points, position) {
                     destroy(this);
                 }
             }
-        }
+        },
+        z(20),
     ]);
 }
