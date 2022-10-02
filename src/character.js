@@ -1,17 +1,25 @@
 import characters from "./data/characters.json";
 import talk from "./components/talk.js";
 import {identity} from "./components/identity.js";
-import {uniqueNamesGenerator, names, adjectives} from "unique-names-generator";
+import {uniqueNamesGenerator, names} from "unique-names-generator";
 
 export function spawnNpcs(deliverer) {
     // Get each spawn and select some randomly
     const spawns = get("npc_spawn").shuffle().slice(0, 20);
+
+    const configName = { dictionaries: [names] };
+    const generatedNames = [];
+
     return spawns.map(spawn => {
         // Choose random character (sprite)
         const character = characters.pickRandom();
 
-        // Choose random name
-        const name = uniqueNamesGenerator({ dictionaries: [names] })
+        // Choose random name until it's unique
+        let name = uniqueNamesGenerator(configName)
+        while (generatedNames.indexOf(name) !== -1) {
+            name = uniqueNamesGenerator(configName)
+        }
+        generatedNames.push(name)
 
         // Create npc
         return add([
