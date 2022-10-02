@@ -1,4 +1,4 @@
-import greetings from "../data/greetings"
+import greetings from "../data/greetings";
 
 export function identity(name, character) {
 
@@ -9,6 +9,6 @@ export function identity(name, character) {
             character: character,
             greeting: greetings.pickRandom().replace("{name}", name)
         }
-    }
+    };
 
 }

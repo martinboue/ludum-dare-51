@@ -28,7 +28,7 @@ export default function talk(deliverer, options={ width: 100, offset: {x: 0, y: 
             txt.hidden = false;
             txt.text = message;
 
-            this.dismiss(timeout)
+            this.dismiss(timeout);
         },
 
         dismiss(timeout) {

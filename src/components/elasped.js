@@ -1,4 +1,4 @@
-export function elasped(timeout, action, autostart=true) {
+export function elasped(timeout, onEach, onRestart = () => {}, autostart=true) {
 
     let lastStart = null;
     let isStarted = false;
@@ -15,14 +15,17 @@ export function elasped(timeout, action, autostart=true) {
 
             if (now - lastStart >= timeout) {
                 lastStart = now;
-                action = action.bind(this);
-                action();
+                onEach = onEach.bind(this);
+                onEach();
             }
         },
 
         restart() {
             isStarted = true;
             lastStart = time();
+
+            onRestart = onRestart.bind(this);
+            onRestart();
         },
 
         stop() {

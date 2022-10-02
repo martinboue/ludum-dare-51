@@ -15,10 +15,24 @@ export function generateOrder(npcs) {
         client: client
     };
 
+    // 30s to deliver order
+    const deliveryDelay = 30;
+
     // Create order
     return {
         food: food,
         deliveryInfo: deliveryInfo,
+        deliveryDelay: deliveryDelay,
+        expireAt: time(),
+        resetExpiration() {
+            this.expireAt = time() + deliveryDelay;
+        },
+        getRemainingTime() {
+            return Math.floor(this.expireAt - time());
+        },
+        isExpired() {
+            return this.getRemainingTime() < 0;
+        }
     };
 }
 
@@ -34,10 +48,10 @@ function generateHints(client, npcs) {
 
         if (filter) {
             // Add filter to list of selected
-            selectedFilters.push(filter)
+            selectedFilters.push(filter);
         } else {
             // Use unique filter instead
-            selectedFilters = [uniqueIdentityFilter]
+            selectedFilters = [uniqueIdentityFilter];
         }
     }
 
@@ -46,8 +60,45 @@ function generateHints(client, npcs) {
         // Each filter has many functions to translate to readable hint
         // We choose one randomly
         const textFn = filter.textsFn.pickRandom();
-        return textFn(client)
+        return textFn(client);
     });
+}
+
+export function addOrderItem(order, index) {
+    const margin = 10;
+
+    return add([
+        sprite(order.food.code),
+        pos(index * 16 + (index + 1) * margin, margin),
+        z(100),
+        fixed(),
+        origin('center'),
+        'orderItem',
+        {
+            update() {
+                if (order.isExpired()) {
+                    destroy(this);
+                    this.trigger('order-expired', order);
+                }
+            },
+
+            draw() {
+                // Hint: we don't use comp text to be able to use different color for text
+                drawText({
+                    text: order.getRemainingTime(),
+                    font: "sink",
+                    pos: vec2(0, 0),
+                    origin: "center",
+                    fixed: true,
+                    color: rgb(255, 255, 255),
+                });
+            },
+
+            onOrderExpired(cb) {
+                this.on('order-expired', () => cb());
+            }
+        },
+    ]);
 }
 
 function filtersMatch(client, npcs, filters) {

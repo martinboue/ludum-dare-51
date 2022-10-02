@@ -8,7 +8,7 @@ export const uniqueIdentityFilter = {
     textsFn: [
         (clientNpc) => `His name is ${ clientNpc.identity.name }.`
     ]
-}
+};
 
 /**
  * Filters to compare if there is another NPC with the same attribute as the chosen client NPC
@@ -74,4 +74,4 @@ export const identityFilters = [
             (clientNpc) => clientNpc.identity.character.hair?.color ? `He has ${ clientNpc.identity.character.hair.color } hair.` : `He is bald.`
         ]
     }
-]
+];

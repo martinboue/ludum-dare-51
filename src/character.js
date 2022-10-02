@@ -5,13 +5,13 @@ import {uniqueNamesGenerator, names, adjectives} from "unique-names-generator";
 
 export function spawnNpcs(deliverer) {
     // Get each spawn and select some randomly
-    const spawns = get("npc_spawn").shuffle().slice(0, 20);
+    const spawns = get("npc_spawn").shuffle().slice(0, 2);
     return spawns.map(spawn => {
         // Choose random character (sprite)
         const character = characters.pickRandom();
 
         // Choose random name
-        const name = uniqueNamesGenerator({ dictionaries: [names] })
+        const name = uniqueNamesGenerator({ dictionaries: [names] });
 
         // Create npc
         return add([
