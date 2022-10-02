@@ -10,8 +10,15 @@ export function generateOrder(npcs) {
     const client = npcs.pickRandom();
 
     // Generate hint to target this client
+    const hints = generateHints(client, npcs)
+    let hintPhrase = "He has ";
+    if (hints.length > 1) {
+        hintPhrase += hints.slice(0, hints.length - 2).join(", ") + " and ";
+    }
+    hintPhrase += hints[hints.length - 1] + ".";
+
     const deliveryInfo = {
-        hint: generateHints(client, npcs).join(" "),
+        hint: hintPhrase,
         client: client
     };
 

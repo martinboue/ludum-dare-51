@@ -31,6 +31,7 @@ import {addGlobalDialog} from "./globalDialog.js";
 import {addPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
 
+// GAME CONSTANTS
 const EXPLORATION_TIME = 30; // 30s
 
 kaboom({
