@@ -11,7 +11,7 @@ export function generateOrder(npcs) {
 
     // Generate hint to target this client
     const hints = generateHints(client, npcs)
-    let hintPhrase = "He has ";
+    let hintPhrase = "This is for the guy with ";
     if (hints.length > 1) {
         hintPhrase += hints.slice(0, -1).join(", ") + " and ";
     }

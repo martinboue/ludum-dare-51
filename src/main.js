@@ -33,7 +33,7 @@ import {addGlobalHelper} from "./globalHelper.js";
 
 // GAME CONSTANTS
 const EXPLORATION_TIME = 1; // seconds
-const NEW_ORDER_TIME = 11; // seconds
+const NEW_ORDER_TIME = 10; // seconds
 const NB_NPC = 20;
 
 kaboom({
@@ -205,7 +205,7 @@ const orderTimer = add([
     }, () => {}, false),
     color(0, 0, 0),
     {
-        remainingTime: 10,
+        remainingTime: NEW_ORDER_TIME,
     }
 ]);
 
@@ -272,12 +272,12 @@ deliverer.onPollOrder(refreshOrderItems);
 onKeyPress(['space', 'enter'], () => {
     every('building', (building) => {
         if (deliverer.isTouching(building)) {
-            // Take first order of the building (we don't delete it right now in cas the player can't take it)
+            // Take first order of the building (we don't delete it right now in case the player can't take it)
             const order = building.peekOrder();
             if (order) {
                 if (deliverer.isFull()) {
                     shake(1);
-                    building.say("You can't carry this order, go deliver your orders and get back to me later!");
+                    building.say("You have too many orders! Deliver them first and then come back to me.");
                 } else {
                     building.say(order.deliveryInfo.hint);
 
@@ -286,7 +286,7 @@ onKeyPress(['space', 'enter'], () => {
                 }
             } else {
                 shake(1);
-                building.say('Sorry, no order for you.');
+                building.say('Sorry, no orders for you.');
             }
         }
     });
@@ -310,8 +310,8 @@ const start = () => {
     orderTimer.hidden = false;
     score.hidden = false;
 
-    // Create new order every 10 seconds
-    loop(NEW_ORDER_TIME, () => {
+    // Create new order every x seconds
+    loop(NEW_ORDER_TIME + 1, () => {
         // Pick random restaurant (only those with a place for an order)
         const notFullBuildings = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullBuildings)) {
@@ -322,6 +322,6 @@ const start = () => {
           globalDialog.show(building.name, orderLines.pickRandom());
         }
 
-        orderTimer.remainingTime = 10;
+        orderTimer.remainingTime = NEW_ORDER_TIME;
     });
 };
