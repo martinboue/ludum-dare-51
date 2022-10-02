@@ -32,7 +32,7 @@ import {showPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 1; // seconds
+const EXPLORATION_TIME = 30; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
