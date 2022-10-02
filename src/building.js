@@ -4,11 +4,13 @@ import {orderHolder} from "./components/orderHolder.js";
 import talk from "./components/talk.js";
 
 export function generateBuildings(deliverer) {
+    // FIXME : Add 1 to y for triggering onCollideEvent because there is wall
+    // TODO : plus tard il ne faudra pas mettre de mur devant les batiments
     const buildingPositions = [
-        pos(288, 208),
-        pos(384, 448),
-        pos(976, 448),
-        pos(976, 208),
+        pos(288, 208 + 1),
+        pos(384, 448 + 1),
+        pos(976, 448 + 1),
+        pos(976, 208 + 1),
     ].shuffle();
 
     const buildingInfos = [
@@ -35,7 +37,7 @@ export function generateBuildings(deliverer) {
             orderHolder(5),
             "building",
             {
-                name: info.name
+                name: info.name,
             }
         ])
     );

@@ -8,6 +8,7 @@ import "./utils/number.js";
 import delivererAtlas from "../assets/Spritesheet/deliverer.png";
 import skinsAtlas from "../assets/Spritesheet/skins.png";
 import foodAtlas from "../assets/Spritesheet/food.png";
+import inputsAtlas from "../assets/Spritesheet/inputs.png";
 import {levelBackgrounds, levels} from "./levels.js";
 import mcdo from '../assets/mcdo.png';
 import kfc from '../assets/kfc.png';
@@ -28,6 +29,7 @@ import {spawnNpcs} from "./character.js";
 import {elasped} from "./components/elasped.js";
 import {addGlobalDialog} from "./globalDialog.js";
 import {addPoints, addScore} from "./score.js";
+import {addGlobalHelper} from "./globalHelper.js";
 
 const EXPLORATION_TIME = 30; // 30s
 
@@ -38,62 +40,66 @@ kaboom({
 });
 
 // LOAD ASSETS
+loadSpriteAtlas(inputsAtlas, {
+    input_enter: { x: 0, y: 0, width: 40, height: 16 },
+    input_space: { x: 0, y: 16, width: 40, height: 16 },
+    input_up: { x: 40, y: 0, width: 15, height: 16 },
+    input_right: { x: 55, y: 0, width: 15, height: 16 },
+    input_down: { x: 40, y: 16, width: 15, height: 16 },
+    input_left: { x: 55, y: 16, width: 15, height: 16 }
+});
 
 // Deliver animations
-loadSpriteAtlas(delivererAtlas,
-    {
-        npc: {
-            x: 0,
-            y: 0,
-            width: 16,
-            height: 16
-        },
-        deliverer: {
-            x: 16,
-            y: 0,
-            width: 16 * 12,
-            height: 16,
-            sliceX: 12,
-            anims: {
-                idle_left: 0,
-                left: { from: 0, to: 2, speed: 5, loop: true },
-                idle_bottom: 3,
-                bottom: { from: 3, to: 5, speed: 5, loop: true },
-                idle_top: 6,
-                top: { from: 6, to: 8, speed: 5, loop: true },
-                idle_right: 9,
-                right: { from: 9, to: 11, speed: 5, loop: true }
-            }
+loadSpriteAtlas(delivererAtlas, {
+    npc: {
+        x: 0,
+        y: 0,
+        width: 16,
+        height: 16
+    },
+    deliverer: {
+        x: 16,
+        y: 0,
+        width: 16 * 12,
+        height: 16,
+        sliceX: 12,
+        anims: {
+            idle_left: 0,
+            left: { from: 0, to: 2, speed: 5, loop: true },
+            idle_bottom: 3,
+            bottom: { from: 3, to: 5, speed: 5, loop: true },
+            idle_top: 6,
+            top: { from: 6, to: 8, speed: 5, loop: true },
+            idle_right: 9,
+            right: { from: 9, to: 11, speed: 5, loop: true }
         }
     }
-);
+});
 
 // NPC skins
-loadSpriteAtlas(skinsAtlas,
-    {
-        top: {
-            x: 0,
-            y: 0,
-            width: 16 * 6,
-            height: 16,
-            sliceX: 6
-        },
-        bottom: {
-            x: 0,
-            y: 16,
-            width: 16 * 6,
-            height: 16,
-            sliceX: 6
-        },
-        hair: {
-            x: 0,
-            y: 32,
-            width: 16 * 6,
-            height: 16,
-            sliceX: 6
-        }
+loadSpriteAtlas(skinsAtlas, {
+    top: {
+        x: 0,
+        y: 0,
+        width: 16 * 6,
+        height: 16,
+        sliceX: 6
+    },
+    bottom: {
+        x: 0,
+        y: 16,
+        width: 16 * 6,
+        height: 16,
+        sliceX: 6
+    },
+    hair: {
+        x: 0,
+        y: 32,
+        width: 16 * 6,
+        height: 16,
+        sliceX: 6
     }
-);
+});
 
 // Food sprites
 loadSpriteAtlas(
@@ -136,6 +142,9 @@ const map = addLevel(levels[0], {
   "x": () => ["spawn"]
 });
 
+// Create globalHelper
+const globalHelper = addGlobalHelper();
+
 // PLAYER
 const spawn = get("spawn")[0];
 const deliverer = add([
@@ -145,23 +154,32 @@ const deliverer = add([
   solid(),
   area({ width: 16, height: 16 }),
   origin("center"),
-  keyMove(200),
+  keyMove(200, globalHelper),
   orderHolder(2),
   "deliverer",
 ]);
+
+// Create globalDialog
+const globalDialog = addGlobalDialog();
 
 // Restaurants
 const buildings = generateBuildings(deliverer);
 
 // NPCs
-spawnNpcs(deliverer).forEach((npc) => {
+spawnNpcs(deliverer).forEach(npc => {
     npc.onCollide("deliverer", () => {
         npc.say(npc.identity.greeting);
     });
 });
 
-// Create globalDialog
-const globalDialog = addGlobalDialog();
+// Use global helper
+deliverer.onCollide("building", building => {
+    globalHelper.show("input_space", "to take order", building)
+});
+deliverer.onCollide("npc", npc => {
+    globalHelper.show("input_space", "to deliver", npc)
+})
+
 
 // Score
 const score = addScore();

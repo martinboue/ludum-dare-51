@@ -1,6 +1,6 @@
 'use strict';
 
-export default function talk(deliverer, options={ width: 100, offset: {x: 0, y: -8} }) {
+export default function talk(deliverer, options = { width: 100, offset: {x: 0, y: -8} }) {
 
     let txt;
 
