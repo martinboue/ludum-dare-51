@@ -37,7 +37,7 @@ function generateHints(client, npcs) {
             selectedFilters.push(filter)
         } else {
             // Use unique filter instead
-            selectedFilters = [uqniqueIdentityFilter]
+            selectedFilters = [uniqueIdentityFilter]
         }
     }
 

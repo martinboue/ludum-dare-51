@@ -1,7 +1,7 @@
 import characters from "./data/characters.json";
 import talk from "./components/talk.js";
-import {faker} from "@faker-js/faker";
 import {identity} from "./components/identity.js";
+import {uniqueNamesGenerator, names, adjectives} from "unique-names-generator";
 
 export function spawnNpcs(deliverer) {
     // Get each spawn and select some randomly
@@ -11,14 +11,7 @@ export function spawnNpcs(deliverer) {
         const character = characters.pickRandom();
 
         // Choose random name
-        const firstName = faker.name.firstName(character.gender);
-        const lastName = faker.name.lastName(character.gender);
-
-        // Choose random age
-        const birthDate = faker.date.birthdate({ ...getAgeRange(character.ageCategory), mode: "age" });
-
-        // Choose random country
-        const country = faker.address.country();
+        const name = uniqueNamesGenerator({ dictionaries: [names] })
 
         // Create npc
         return add([
@@ -29,7 +22,7 @@ export function spawnNpcs(deliverer) {
             area({ width: 16, height: 16 }),
             origin("center"),
             talk(deliverer),
-            identity(firstName, lastName, birthDate, country, character),
+            identity(name, character),
             "npc"
         ]);
     });

@@ -178,7 +178,7 @@ const buildings = generateBuildings(deliverer);
 // NPCs
 spawnNpcs(deliverer).forEach((npc) => {
     npc.onCollide("deliverer", () => {
-        npc.say(npc.presentation());
+        npc.say(npc.identity.greeting);
     });
 })
 
