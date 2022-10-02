@@ -5,6 +5,7 @@
   - ✔ Score + game over condition + restart game
   - NPC for restaurant + associated food
 - Other
+  - Show restaurant name on sprite
   - Show waiting orders
   - Tutorial + home screen
   - Music (main theme) + SFX

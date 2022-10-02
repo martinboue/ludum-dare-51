@@ -139,11 +139,13 @@ loadSprite('phone', phone);
 
 // INITIALIZE GAME OBJECTS
 
-const background = add([
+// BACKGROUND map
+const mapFrameOffset = 16;
+add([
     sprite("levelBackground"),
     // 1 tile offset to add frame around map
     // to prevent user from getting outside
-    pos(16, 16)
+    pos(mapFrameOffset, mapFrameOffset)
 ]);
 
 // MAP
@@ -179,7 +181,7 @@ const deliverer = add([
 const globalDialog = addGlobalDialog();
 
 // Restaurants
-const buildings = generateBuildings(deliverer);
+const buildings = generateBuildings(deliverer, mapFrameOffset);
 
 // NPCs
 spawnNpcs(deliverer, NB_NPC).forEach(npc => {

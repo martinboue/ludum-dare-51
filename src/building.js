@@ -3,40 +3,51 @@
 import {orderHolder} from "./components/orderHolder.js";
 import talk from "./components/talk.js";
 
-export function generateBuildings(deliverer) {
-    // FIXME : Add 1 to y for triggering onCollideEvent because there is wall
-    // TODO : plus tard il ne faudra pas mettre de mur devant les batiments
+/**
+ * @param deliverer the character to talk to
+ * @param offset  for the frame around the map
+ */
+export function generateBuildings(deliverer, offset) {
+
     const buildingPositions = [
-        pos(288, 208 + 1),
-        pos(384, 448 + 1),
-        pos(976, 448 + 1),
-        pos(976, 208 + 1),
-    ].shuffle();
+        // Position: top left corner
+        { x: 48,  y: 32, width: 6 * 16, height: 7 * 16 },
+        { x: 512, y: 16, width: 8 * 16, height: 8 * 16 },
+        { x: 336, y: 240, width: 5 * 16, height: 8 * 16 },
+        { x: 96,  y: 496, width: 5 * 16, height: 7 * 16 },
+        { x: 608, y: 480, width: 6 * 16, height: 8 * 16 }
+    ]
 
+    // TODO : il manque d'afficher le nom du restaurant sur le sprite
     const buildingInfos = [
-        {name: "McDo", sprite: sprite('mcdo'), color: color(255, 0, 0)},
-        {name: "KFC", sprite: sprite('kfc'), color: color(0, 255, 0)},
-        {name: "Kebab56", sprite: sprite('kebab56'), color: color(0, 0, 255)},
-        {name: "Michel & Nina", sprite: sprite('michel&nina'), color: color(255, 255, 0)},
-    ].shuffle();
+        {name: "Big Donald", color: color(255, 0, 0)},
+        {name: "KCF", color: color(0, 255, 0)},
+        {name: "Kebab56", color: color(0, 0, 255)},
+        {name: "Michel & Nina", color: color(255, 255, 0)},
+        {name: "Grominos", color: color(0, 125, 0)},
+    ]
+    // TODO : pour l'instant je désactive le .shuffle(); car manque d'indication
 
-    return Array.zip(buildingInfos, buildingPositions).map(([info, posComp]) =>
+    return Array.zip(buildingInfos, buildingPositions).map(([info, posSize]) =>
         add([
             area(),
             solid(),
-            posComp,
+            // Convert position to origin center
+            pos(posSize.x + offset + posSize.width / 2, posSize.y + offset + posSize.height / 2),
+            origin("center"),
             talk(deliverer, {
                 width: 150,
-                offset: {
-                    x: 50,
-                    y: 50,
-                }
+                offset: { x: 0, y: 0 }
             }),
-            info.sprite,
             info.name, // To use name has tag
             orderHolder(5),
             "building",
             {
+                // Shape for area :
+                width: posSize.width,
+                height: posSize.height,
+
+                // Additional info :
                 name: info.name,
             }
         ])
