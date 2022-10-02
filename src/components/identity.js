@@ -7,7 +7,7 @@ export function identity(name, skin) {
         identity: {
             name: name,
             skin: skin,
-            greeting: greetings.pickRandom().replace("{name}", name)
+            greeting: greetings.pickRandom().replaceAll("{name}", name)
         }
     };
 

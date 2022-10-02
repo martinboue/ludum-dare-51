@@ -11,7 +11,11 @@
   "Hey, I'm {name}.",
   "I'm {name}.",
   "What's up? My name's {name}.",
-  "Morning! I don't think we've met before, I'm {name}.",
+  "Let me introduce myself... {name}.",
+  "It's me, I'm {name}.",
+  "Do I know you? I'm {name}.",
+  "{name}. Just {name}.",
+  "Morning! It's {name}.",
   "Hey there, I'm {name}.",
   "I am {name}, nice to meet you."
 ]

@@ -26,10 +26,10 @@ export function generateBuildings(deliverer) {
             solid(),
             posComp,
             talk(deliverer, {
-                width: 300,
+                width: 150,
                 offset: {
                     x: 50,
-                    y: 100,
+                    y: 50,
                 }
             }),
             info.sprite,
