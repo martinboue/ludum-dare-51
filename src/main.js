@@ -5,7 +5,8 @@ import "./utils/array.js";
 import "./utils/number.js";
 
 // Assets
-import charactersAtlas from "../assets/Spritesheet/characters.png";
+import delivererAtlas from "../assets/Spritesheet/deliverer.png";
+import skinsAtlas from "../assets/Spritesheet/skins.png";
 import foodAtlas from "../assets/Spritesheet/food.png";
 import {levelBackgrounds, levels} from "./levels.js";
 import mcdo from '../assets/mcdo.png';
@@ -16,7 +17,6 @@ import phone from '../assets/phone.png';
 
 // Data
 import foodList from "./data/food.json";
-import npcList from "./data/characters.json";
 import orderLines from "./data/order-lines.json";
 
 // Components
@@ -29,7 +29,7 @@ import {elasped} from "./components/elasped.js";
 import {addGlobalDialog} from "./globalDialog.js";
 import {addPoints, addScore} from "./score.js";
 
-const EXPLORATION_TIME = 1; // 30s
+const EXPLORATION_TIME = 30; // 30s
 
 kaboom({
     scale: 4,
@@ -39,28 +39,60 @@ kaboom({
 
 // LOAD ASSETS
 
-// Characters animations
-loadSpriteAtlas(charactersAtlas,
-    npcList.reduce((prev, npc) => {
-      prev[npc.code] = {
-        x: 16 * npc.spriteIndex,
-        y: 0,
-        width: 16,
-        height: 16 * 12,
-        sliceY: 12,
-        anims: {
-          idle_left: 0,
-          left: { from: 0, to: 2, speed: 5, loop: true },
-          idle_bottom: 3,
-          bottom: { from: 3, to: 5, speed: 5, loop: true },
-          idle_top: 6,
-          top: { from: 6, to: 8, speed: 5, loop: true },
-          idle_right: 9,
-          right: { from: 9, to: 11, speed: 5, loop: true }
+// Deliver animations
+loadSpriteAtlas(delivererAtlas,
+    {
+        npc: {
+            x: 0,
+            y: 0,
+            width: 16,
+            height: 16
+        },
+        deliverer: {
+            x: 16,
+            y: 0,
+            width: 16 * 12,
+            height: 16,
+            sliceX: 12,
+            anims: {
+                idle_left: 0,
+                left: { from: 0, to: 2, speed: 5, loop: true },
+                idle_bottom: 3,
+                bottom: { from: 3, to: 5, speed: 5, loop: true },
+                idle_top: 6,
+                top: { from: 6, to: 8, speed: 5, loop: true },
+                idle_right: 9,
+                right: { from: 9, to: 11, speed: 5, loop: true }
+            }
         }
-      };
-      return prev;
-    }, {})
+    }
+);
+
+// NPC skins
+loadSpriteAtlas(skinsAtlas,
+    {
+        top: {
+            x: 0,
+            y: 0,
+            width: 16 * 6,
+            height: 16,
+            sliceX: 6
+        },
+        bottom: {
+            x: 0,
+            y: 16,
+            width: 16 * 6,
+            height: 16,
+            sliceX: 6
+        },
+        hair: {
+            x: 0,
+            y: 32,
+            width: 16 * 6,
+            height: 16,
+            sliceX: 6
+        }
+    }
 );
 
 // Food sprites
@@ -107,7 +139,7 @@ const map = addLevel(levels[0], {
 // PLAYER
 const spawn = get("spawn")[0];
 const deliverer = add([
-  sprite("male_1", { anim: "idle_bottom"}),
+  sprite("deliverer", { anim: "idle_bottom"}),
   pos(spawn.pos.x + 8, spawn.pos.y + 8),
   rotate(0),
   solid(),

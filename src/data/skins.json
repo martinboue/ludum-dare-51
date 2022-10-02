@@ -1,0 +1,26 @@
+{
+    "top": [
+        "black",
+        "green",
+        "blue",
+        "red",
+        "yellow",
+        "white"
+    ],
+    "bottom": [
+        "black",
+        "green",
+        "blue",
+        "red",
+        "yellow",
+        "white"
+    ],
+    "hair": [
+        { "type": "short", "color": "brown" },
+        { "type": "short", "color": "black" },
+        { "type": "short", "color": "grey" },
+        { "type": "long", "color": "brown" },
+        { "type": "long", "color": "black" },
+        { "type": "long", "color": "grey" }
+    ]
+}
