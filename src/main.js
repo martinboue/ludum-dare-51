@@ -5,10 +5,10 @@ import "./utils/array.js";
 import "./utils/number.js";
 
 // Assets
-import delivererAtlas from "../assets/Spritesheet/deliverer.png";
-import skinsAtlas from "../assets/Spritesheet/skins.png";
-import foodAtlas from "../assets/Spritesheet/food.png";
-import inputsAtlas from "../assets/Spritesheet/inputs.png";
+import delivererAtlas from "../assets/sprites/deliverer.png";
+import skinsAtlas from "../assets/sprites/skins.png";
+import foodAtlas from "../assets/sprites/food.png";
+import inputsAtlas from "../assets/sprites/inputs.png";
 import {levelBackgrounds, levels} from "./levels.js";
 import mcdo from '../assets/mcdo.png';
 import kfc from '../assets/kfc.png';
@@ -35,13 +35,13 @@ import {addGlobalHelper} from "./globalHelper.js";
 const EXPLORATION_TIME = 30; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
-const NB_NPC = 20;
+const NB_NPC = 10;
 const WRONG_NPC_POINTS = 10;
 
 kaboom({
     scale: 4,
     font: "sink",
-    background: [ 166, 169, 174 ]
+    background: [ 185, 197, 202 ]
 });
 
 // LOAD ASSETS
@@ -139,7 +139,10 @@ loadSprite('phone', phone);
 // INITIALIZE GAME OBJECTS
 
 const background = add([
-  sprite("levelBackground"),
+    sprite("levelBackground"),
+    // 1 tile offset to add frame around map
+    // to prevent user from getting outside
+    pos(16, 16)
 ]);
 
 // MAP
@@ -164,7 +167,7 @@ const deliverer = add([
   pos(spawn.pos.x + 8, spawn.pos.y + 8),
   rotate(0),
   solid(),
-  area({ width: 16, height: 16 }),
+  area({ width: 12, height: 16 }),
   origin("center"),
   keyMove(200, globalHelper),
   orderHolder(2),

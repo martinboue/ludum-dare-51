@@ -39,7 +39,6 @@ export function spawnNpcs(deliverer, nbNpcs) {
             sprite("npc", { frame: 0 }),
             pos(spawn.pos.x + 8, spawn.pos.y + 8),
             rotate(0),
-            solid(),
             area({ width: 16, height: 16 }),
             origin("center"),
             talk(deliverer),

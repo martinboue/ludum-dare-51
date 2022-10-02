@@ -1,8 +1,6 @@
 # Ludum Dare 51
 
 ## Features
-- Martin
-  - Better map
 - Thomas
   - ✔ Score + game over condition + restart game
   - NPC for restaurant + associated food
