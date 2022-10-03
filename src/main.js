@@ -327,7 +327,7 @@ onKeyPress(['space', 'enter'], () => {
             if (order) {
                 if (deliverer.isFull()) {
                     shake(1);
-                    building.say("[You have too many orders! Deliver them first and then come back to me.].black");
+                    building.say(`[${building.name}].red[:You have too many orders! Deliver them first and then come back to me.].black`);
                 } else {
                     building.say(order.deliveryInfo.hint);
 
@@ -336,7 +336,7 @@ onKeyPress(['space', 'enter'], () => {
                 }
             } else {
                 shake(1);
-                building.say('[Sorry, no orders for you.].black');
+                building.say(`[${building.name}].red[:Sorry, no orders for you.].black`);
             }
         }
     });
@@ -376,7 +376,7 @@ const start = () => {
         // Pick random restaurant (only those with a place for an order)
         const notFullBuildings = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullBuildings)) {
-          const building = notFullBuildings.shuffle()[0];
+          const building = notFullBuildings.pickRandom();
           building.pushOrder(generateOrder(get('npc'), DELIVERY_TIME));
 
           // Update globalDialog with hint

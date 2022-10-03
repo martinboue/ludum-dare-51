@@ -3,12 +3,11 @@
 import './math.js';
 
 Array.prototype.shuffle = function() {
-    const positions = [...Array(this.length).keys()].sort((a, b) => Math.random() - Math.random());
     const result = [];
 
-    this.forEach((element, index) => {
-       result[positions[index]] = element;
-    });
+    while(this.length > 0) {
+        result.push(this.popRandom());
+    }
 
     return result;
 };
@@ -31,6 +30,11 @@ Array.partition = (array, condition) => {
 Array.prototype.pickRandom = function() {
     return this[Math.randomBetween(0, this.length - 1)];
 };
+
+Array.prototype.popRandom = function() {
+    if (Array.empty(this)) return null;
+    return this.splice(Math.randomBetween(0, this.length - 1), 1)[0];
+}
 
 Array.zip = function (a, b) {
     if (a.length !== b.length) throw new Error("a and b must be the same size to be zipped");

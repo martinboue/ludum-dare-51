@@ -18,7 +18,7 @@ export function generateBuildings(deliverer, offset) {
         { x: 608, y: 480, width: 6 * 16, height: 8 * 16 }
     ]
 
-    // TODO : il manque d'afficher le nom du restaurant sur le sprite
+    // TODO : it misses to display the name of the restaurant on the sprite
     const buildingInfos = [
         {name: "Big Donald", color: color(255, 0, 0)},
         {name: "KCF", color: color(0, 255, 0)},
@@ -26,7 +26,7 @@ export function generateBuildings(deliverer, offset) {
         {name: "Michel & Nina", color: color(255, 255, 0)},
         {name: "Grominos", color: color(0, 125, 0)},
     ]
-    // TODO : pour l'instant je désactive le .shuffle(); car manque d'indication
+    // TODO : for the moment I disable the .shuffle(); because lack of indication
 
     return Array.zip(buildingInfos, buildingPositions).map(([info, posSize]) =>
         add([
