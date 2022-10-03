@@ -16,6 +16,5 @@
 ## Bugs 
 - Animation quand effonce et relache une touche de déplacement rapidement
 - Se déplace plus vite en diagonale
-- Mauvaise orientation si plusieurs déplacements en même temps
 - Les dialogs qui disparaissent
 - ✔ When order expired is not remove from deliverer

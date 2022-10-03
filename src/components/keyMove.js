@@ -33,8 +33,18 @@ export default function keyMove(deliverSpeed, globalHelper) {
             if (!keys.some(key => isKeyDown(key))) {
                 // Change property go...
                 this[propertyName] = false;
+
+                // Set stop animation only if the entity will stop moving
                 if (!this.goLeft && !this.goRight && !this.goUp && !this.goDown) {
                     this.play(stopAnimationName);
+                } else if (this.goDown) {
+                    this.play("bottom")
+                } else if (this.right) {
+                    this.play("right")
+                } else if (this.goLeft) {
+                    this.play("left")
+                } else if (this.goUp) {
+                    this.play("top")
                 }
             }
         },
