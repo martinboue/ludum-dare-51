@@ -14,15 +14,20 @@ export function generateOrder(npcs, deliveryDelay) {
     let hintPhrase;
 
     if (useName) {
-        hintPhrase = "This is for " + client.identity.name;
+        hintPhrase = "[This is for].black [" + client.identity.name + "].red.";
     } else {
         // Generate hint to target this client
         const hints = generateHints(client, npcs)
-        hintPhrase = "This is for the guy with ";
+        hintPhrase = "[This is for the guy with].black ";
         if (hints.length > 1) {
-            hintPhrase += hints.slice(0, -1).join(", ") + " and ";
+            hintPhrase += hints
+                .map(h => "[" + h.getText(client) + "]." + h.getColor(client))
+                .slice(0, -1)
+                .join(", ")
+                + " [and].black ";
         }
-        hintPhrase += hints[hints.length - 1] + ".";
+        const lastHint = hints[hints.length - 1];
+        hintPhrase += "[" + lastHint.getText(client) + "]." + lastHint.getColor(client);
     }
 
     const deliveryInfo = {
@@ -68,12 +73,7 @@ function generateHints(client, npcs) {
     }
 
     // Convert all selected filters to readable hints
-    return selectedFilters.map(filter => {
-        // Each filter has many functions to translate to readable hint
-        // We choose one randomly
-        const textFn = filter.textsFn.pickRandom();
-        return textFn(client);
-    });
+    return selectedFilters
 }
 
 function filtersMatch(client, npcs, filters) {

@@ -327,7 +327,7 @@ onKeyPress(['space', 'enter'], () => {
             if (order) {
                 if (deliverer.isFull()) {
                     shake(1);
-                    building.say("You have too many orders! Deliver them first and then come back to me.");
+                    building.say("[You have too many orders! Deliver them first and then come back to me.].black");
                 } else {
                     building.say(order.deliveryInfo.hint);
 
@@ -336,7 +336,7 @@ onKeyPress(['space', 'enter'], () => {
                 }
             } else {
                 shake(1);
-                building.say('Sorry, no orders for you.');
+                building.say('[Sorry, no orders for you.].black');
             }
         }
     });
@@ -348,14 +348,14 @@ onKeyPress(['space', 'enter'], () => {
             // If there is at least one order for this NPC
             if (orders.length > 0) {
                 orders.forEach(o => {
-                    npc.say("Thanks for the order!");
+                    npc.say("[Thanks for the order!].black");
                     const points = score.addScoreForOrder(o);
                     showPoints(points, deliverer);
                 });
             }
             // Lose points if asking the wrong NPC
             else if (deliverer.hasOrders()) {
-                npc.say("No, this is not my order.")
+                npc.say("[No, this is not my order.].black")
                 score.decreaseScore(WRONG_NPC_POINTS)
                 showPoints(-WRONG_NPC_POINTS, deliverer)
             }
