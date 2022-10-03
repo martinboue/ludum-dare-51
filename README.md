@@ -35,11 +35,7 @@ npm run build
 ```
 
 ### Deploy
-#### itch.io
-To deploy on **itch.io**, zip the "dist" folder and upload it.
-
-#### Ludum Dare
-To deploy on **Ludum Dare**, zip the content of the "dist" folder and upload it. 
+To deploy on Ludum Dare or itch.io, zip the content of the "dist" folder and upload it.
 
 ## Features
 - Thomas
