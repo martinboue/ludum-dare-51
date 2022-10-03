@@ -9,9 +9,13 @@ import delivererAtlas from "../assets/sprites/deliverer.png";
 import skinsAtlas from "../assets/sprites/skins.png";
 import foodAtlas from "../assets/sprites/food.png";
 import inputsAtlas from "../assets/sprites/inputs.png";
-import {levelBackgrounds, levels} from "./levels.js";
 import phone from '../assets/phone.png';
 import cross from '../assets/cross.png';
+
+// Fixme: not working on itch.io if asset import is not in main.js  
+import level0Background from "../assets/sprites/map.png";
+
+import {levelBackgrounds, levels} from "./levels.js";
 
 // Data
 import foodList from "./data/food.json";
@@ -127,7 +131,7 @@ loadSpriteAtlas(
   }, {}));
 
 // BACKGROUND
-loadSprite("levelBackground", levelBackgrounds[0]);
+loadSprite("levelBackground", level0Background);
 
 loadSprite('phone', phone);
 loadSprite('cross', cross);
