@@ -65,5 +65,9 @@ export function orderHolder(max) {
         removeOrder(order) {
           orders = orders.filter(o => o !== order);
         },
+
+        clear() {
+            orders = [];
+        }
     };
 }

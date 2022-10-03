@@ -30,13 +30,13 @@ import {addGlobalHelper} from "./globalHelper.js";
 import {addGameOver} from "./gameOver.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 1; // seconds
+const EXPLORATION_TIME = 30; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
 const WRONG_NPC_POINTS = 10;
 const PLAYER_SPEED = 150; // pixel/seconds
-const MAX_MISSED_ORDER = 5; // Game over if 3 missed order
+const MAX_MISSED_ORDER = 3; // Game over if 3 missed order
 
 kaboom({
     scale: 4,
@@ -202,8 +202,9 @@ const score = addScore();
 // Order timer
 const orderTimer = add([
     text('', { size: 8, font: "sinko" }),
-    pos(width() - 12, 12),
+    pos(width() - 12, height() - 12),
     origin("right"),
+    z(95),
     fixed(),
     elasped(1, function () {
         this.text = `Next order in ${this.remainingTime}`;
@@ -249,10 +250,6 @@ add([
     }
 ]);
 
-// Game over text
-const gameOver = addGameOver();
-gameOver.hidden = true;
-
 // GAME UPDATE
 
 // Camera follow player
@@ -273,6 +270,27 @@ const refreshOrderItems = () => {
 deliverer.onPushOrder(refreshOrderItems);
 deliverer.onPollOrder(refreshOrderItems);
 
+// Game over
+// Game over text
+const gameOver = addGameOver();
+gameOver.hidden = true;
+
+const showGameOver = () => {
+    gameOver.hidden = false;
+
+    orderTimer.hidden = true;
+
+    deliverer.clear();
+
+    every('orderItem', destroy);
+    every('orderMiss', destroy);
+
+    every("building", (building) => {
+        // Remove all generated commands
+        building.clear();
+    });
+}
+
 // When order expired
 on('order-expired', 'orderItem', (orderItem, order) => {
     deliverer.removeOrder(order);
@@ -284,7 +302,7 @@ on('order-expired', 'orderItem', (orderItem, order) => {
     shake(1); // Shake off course
 
     if (numberOfMisses + 1 >= MAX_MISSED_ORDER) {
-        gameOver.hidden = false;
+        showGameOver();
     }
 });
 
@@ -340,6 +358,8 @@ const start = () => {
 
     // Create new order every x seconds
     loop(NEW_ORDER_TIME + 1, () => {
+        if (!gameOver.hidden) return;
+
         // Pick random restaurant (only those with a place for an order)
         const notFullBuildings = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullBuildings)) {

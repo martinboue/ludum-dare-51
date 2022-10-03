@@ -113,7 +113,7 @@ export function addOrderMiss(order, index) {
     return add([
         sprite('cross'),
         pos(index * 8 + (index + 1) * margin, height() - margin),
-        z(100),
+        z(95),
         fixed(),
         origin('center'),
         'orderMiss',
