@@ -1,4 +1,37 @@
-# Ludum Dare 51
+# Is this your Order?
+## About
+You are a delivery man in a small town and suddenly... everyone is hungry!
+You have to deliver to the villagers as quickly as possible thanks to clues 
+given by the restaurants. Get to know the locals to deliver faster. Beware, 
+if you don't deliver your orders in time, you will be fired!
+
+This game was created by Martin Boué and Thomas Le Goff as part of the 51st
+edition of the game jam "Ludum Dare" whose theme was "Every 10 seconds".
+
+Made with [Kaboom JS](https://kaboomjs.com/).
+
+## Usage
+### Requirements
+Install NodeJS
+
+### Dev
+Run :
+```
+npm install
+```
+
+Start game in local :
+```
+npm run dev
+```
+
+Your should see the game in your browser.
+
+### Build
+Run :
+```
+npm run build
+```
 
 ## Features
 - Thomas
@@ -18,3 +51,12 @@
 - Se déplace plus vite en diagonale
 - Les dialogs qui disparaissent
 - ✔ When order expired is not remove from deliverer
+
+## Credits
+### Contributors
+- Martin Boué
+- Thomas Le Goff
+
+### Assets
+- [Kenney - Roguelike Modern City](https://kenney.nl/assets/roguelike-modern-city)
+- [Kenney - RPG Urban Pack](https://kenney.nl/assets/rpg-urban-pack)
