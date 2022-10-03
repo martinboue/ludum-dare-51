@@ -1,6 +1,6 @@
 import "./utils/array.js";
 import foodList from "./data/food.json";
-import {identityFilters, uniqueIdentityFilter} from "./identityFilters.js";
+import {identityFilters} from "./identityFilters.js";
 
 export function generateOrder(npcs, deliveryDelay) {
     // Choose random food
@@ -9,13 +9,21 @@ export function generateOrder(npcs, deliveryDelay) {
     // Select a NPC client
     const client = npcs.pickRandom();
 
-    // Generate hint to target this client
-    const hints = generateHints(client, npcs)
-    let hintPhrase = "This is for the guy with ";
-    if (hints.length > 1) {
-        hintPhrase += hints.slice(0, -1).join(", ") + " and ";
+    // Choose hint type : name or skin
+    const useName = Math.randomBoolean();
+    let hintPhrase;
+
+    if (useName) {
+        hintPhrase = "This is for " + client.identity.name;
+    } else {
+        // Generate hint to target this client
+        const hints = generateHints(client, npcs)
+        hintPhrase = "This is for the guy with ";
+        if (hints.length > 1) {
+            hintPhrase += hints.slice(0, -1).join(", ") + " and ";
+        }
+        hintPhrase += hints[hints.length - 1] + ".";
     }
-    hintPhrase += hints[hints.length - 1] + ".";
 
     const deliveryInfo = {
         hint: hintPhrase,
@@ -54,8 +62,8 @@ function generateHints(client, npcs) {
             // Add filter to list of selected
             selectedFilters.push(filter);
         } else {
-            // Use unique filter instead
-            selectedFilters = [uniqueIdentityFilter];
+            console.warn(client, npcs);
+            throw new Error("The skin is not unique among the NPC.");
         }
     }
 

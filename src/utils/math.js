@@ -19,3 +19,11 @@ Math.randomFloatBetween = function (min, max) {
 Math.randomBetween = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+/**
+ * Get random boolean
+ * @returns {boolean}
+ */
+Math.randomBoolean = function () {
+    return Math.random() < 0.5;
+}

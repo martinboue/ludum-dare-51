@@ -1,12 +1,4 @@
 
-export const uniqueIdentityFilter = {
-    filterName: "name",
-    filterFn: (clientNpc) => (npc) => npc.identity.name === clientNpc.identity.name,
-    textsFn: [
-        (clientNpc) => `His name is ${ clientNpc.identity.name }.`
-    ]
-};
-
 /**
  * Filters to compare if there is another NPC with the same attribute as the chosen client NPC
  */
