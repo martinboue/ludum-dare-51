@@ -18,5 +18,4 @@
 - Se déplace plus vite en diagonale
 - Mauvaise orientation si plusieurs déplacements en même temps
 - Les dialogs qui disparaissent
-- Se déplacer plus vite en appuyant sur flèche du haut et Z en même temps
 - ✔ When order expired is not remove from deliverer
