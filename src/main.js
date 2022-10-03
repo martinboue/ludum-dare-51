@@ -11,11 +11,12 @@ import foodAtlas from "../assets/sprites/food.png";
 import inputsAtlas from "../assets/sprites/inputs.png";
 import phone from '../assets/phone.png';
 import cross from '../assets/cross.png';
+import music from "../assets/sounds/S31-City on Speed.ogg"
 
-// Fixme: not working on itch.io if asset import is not in main.js  
+// Fixme: not working on itch.io if asset import is not in main.js
 import level0Background from "../assets/sprites/map.png";
 
-import {levelBackgrounds, levels} from "./levels.js";
+import {levels} from "./levels.js";
 
 // Data
 import foodList from "./data/food.json";
@@ -46,6 +47,14 @@ kaboom({
     scale: 4,
     font: "sink",
     background: [ 185, 197, 202 ]
+});
+
+
+// MUSIC
+loadSound("music", music);
+play("music", {
+    volume: 0.001,
+    loop: true
 });
 
 // LOAD ASSETS
