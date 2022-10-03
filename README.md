@@ -68,6 +68,7 @@ To deploy on **Ludum Dare**, zip the content of the "dist" folder and upload it.
 ### Assets
 - [Roguelike Modern City by Kenney](https://kenney.nl/assets/roguelike-modern-city)
 - [RPG Urban Pack by Kenney](https://kenney.nl/assets/rpg-urban-pack)
+- [Alifdoll's Pixel Food](https://alifdoll.itch.io/pixel-food-asset)
 
 ### Sounds
 - [City on Speed by Section 31 - Tech](https://opengameart.org/art-search?keys=city+speed)
