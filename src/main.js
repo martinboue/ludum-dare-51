@@ -336,7 +336,7 @@ onKeyPress(['space', 'enter'], () => {
                 }
             } else {
                 shake(1);
-                building.say(`[${building.name}].red[:Sorry, no orders for you.].black`);
+                building.say(`[${building.name}].red[: No orders for you.].black`);
             }
         }
     });
