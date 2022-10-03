@@ -39,7 +39,7 @@ export default function keyMove(deliverSpeed, globalHelper) {
                     this.play(stopAnimationName);
                 } else if (this.goDown) {
                     this.play("bottom")
-                } else if (this.right) {
+                } else if (this.goRight) {
                     this.play("right")
                 } else if (this.goLeft) {
                     this.play("left")

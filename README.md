@@ -1,9 +1,10 @@
 # Is this your Order?
 ## About
-You are a delivery man in a small town and suddenly... everyone is hungry!
+You are a **delivery man** in a small town and suddenly... everyone is hungry!
 You have to deliver to the villagers as quickly as possible thanks to clues 
-given by the restaurants. Get to know the locals to deliver faster. Beware, 
-if you don't deliver your orders in time, you will be fired!
+given by the restaurants. Get to know the locals to deliver faster. 
+
+Beware, if you don't deliver your orders in time, you will be fired!
 
 This game was created by Martin Boué and Thomas Le Goff as part of the 51st
 edition of the game jam "Ludum Dare" whose theme was "Every 10 seconds".
