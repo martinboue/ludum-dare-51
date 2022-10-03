@@ -1,3 +1,4 @@
+
 export function addScore() {
 
     const getScoreText = (score) => 'Score: ' + score;
@@ -36,16 +37,17 @@ export function addScore() {
 }
 
 export function showPoints(points, deliverer) {
+
     return add([
         text((points >= 0 ? '+' : '') + points, {size: 6}),
         pos(vec2(deliverer.pos.x, deliverer.pos.y - 10)),
-        color(255,215,0),
+        color(points >= 0 ? rgb(255, 215, 0) : rgb(200, 0, 0)),
         origin("center"),
         opacity(1),
         {
             update() {
                 this.move(0, -5);
-                this.opacity -= 0.01;
+                this.opacity -= 0.005;
                 if (this.opacity < 0) {
                     destroy(this);
                 }

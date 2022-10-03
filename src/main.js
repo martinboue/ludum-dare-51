@@ -11,13 +11,14 @@ import foodAtlas from "../assets/sprites/food.png";
 import inputsAtlas from "../assets/sprites/inputs.png";
 import {levelBackgrounds, levels} from "./levels.js";
 import phone from '../assets/phone.png';
+import cross from '../assets/cross.png';
 
 // Data
 import foodList from "./data/food.json";
 import orderLines from "./data/order-lines.json";
 
 // Components
-import {addOrderItem, generateOrder} from "./order.js";
+import {addOrderItem, addOrderMiss, generateOrder} from "./order.js";
 import keyMove from "./components/keyMove.js";
 import {generateBuildings} from "./building.js";
 import {orderHolder} from "./components/orderHolder.js";
@@ -26,14 +27,16 @@ import {elasped} from "./components/elasped.js";
 import {addGlobalDialog} from "./globalDialog.js";
 import {showPoints, addScore} from "./score.js";
 import {addGlobalHelper} from "./globalHelper.js";
+import {addGameOver} from "./gameOver.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // seconds
+const EXPLORATION_TIME = 1; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
 const WRONG_NPC_POINTS = 10;
 const PLAYER_SPEED = 150; // pixel/seconds
+const MAX_MISSED_ORDER = 5; // Game over if 3 missed order
 
 kaboom({
     scale: 4,
@@ -127,6 +130,7 @@ loadSpriteAtlas(
 loadSprite("levelBackground", levelBackgrounds[0]);
 
 loadSprite('phone', phone);
+loadSprite('cross', cross);
 
 // INITIALIZE GAME OBJECTS
 
@@ -245,6 +249,10 @@ add([
     }
 ]);
 
+// Game over text
+const gameOver = addGameOver();
+gameOver.hidden = true;
+
 // GAME UPDATE
 
 // Camera follow player
@@ -252,21 +260,33 @@ deliverer.onUpdate(() => {
     camPos(deliverer.pos);
 });
 
+// Refresh order items display
 const refreshOrderItems = () => {
     // Clear previous order items
     get('orderItem').forEach(destroy);
 
     // Create order item
     deliverer.getOrders().map((order, index) => addOrderItem(order, index));
-
-    on('order-expired', 'orderItem', (orderItem, order) => {
-        deliverer.removeOrder(order);
-    });
 };
 
 // When player pick order
 deliverer.onPushOrder(refreshOrderItems);
 deliverer.onPollOrder(refreshOrderItems);
+
+// When order expired
+on('order-expired', 'orderItem', (orderItem, order) => {
+    deliverer.removeOrder(order);
+
+    // Add miss
+    const numberOfMisses = get('orderMiss').length;
+
+    addOrderMiss(order, numberOfMisses);
+    shake(1); // Shake off course
+
+    if (numberOfMisses + 1 >= MAX_MISSED_ORDER) {
+        gameOver.hidden = false;
+    }
+});
 
 onKeyPress(['space', 'enter'], () => {
     every('building', (building) => {
@@ -306,7 +326,7 @@ onKeyPress(['space', 'enter'], () => {
             else if (deliverer.hasOrders()) {
                 npc.say("No, this is not my order.")
                 score.decreaseScore(WRONG_NPC_POINTS)
-                showPoints(WRONG_NPC_POINTS, deliverer)
+                showPoints(-WRONG_NPC_POINTS, deliverer)
             }
         }
     });

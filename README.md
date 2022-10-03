@@ -2,8 +2,9 @@
 
 ## Features
 - Thomas
-  - ✔ Score + game over condition + restart game
+  - Cannot play if Game over
   - NPC for restaurant + associated food
+
 - Other
   - Show restaurant name on sprite
   - Show waiting orders
@@ -19,8 +20,3 @@
 - Les dialogs qui disparaissent
 - Se déplacer plus vite en appuyant sur flèche du haut et Z en même temps
 - ✔ When order expired is not remove from deliverer
-
-## Score :
-- ✔ Each order delivered -> +100pts 
-- ✔ Timer on orders -> less points if timer expired (but must still delivered)
-- If N order not delivered on time -> Game over 

@@ -68,6 +68,10 @@ function generateHints(client, npcs) {
     });
 }
 
+function filtersMatch(client, npcs, filters) {
+    return npcs.filter(npc => filters.every(filter => filter.filterFn(client)(npc))).length > 1;
+}
+
 export function addOrderItem(order, index) {
     const margin = 10;
 
@@ -89,19 +93,29 @@ export function addOrderItem(order, index) {
             draw() {
                 // Hint: we don't use comp text to be able to use different color for text
                 const time = order.getRemainingTime()
+
                 drawText({
                     text: time,
                     font: "sink",
                     pos: vec2(0, 14),
                     origin: "center",
                     fixed: true,
-                    color: time > 5 ? rgb(255, 255, 255) : rgb(255, 0, 0),
+                    color: time > 10 ? WHITE : RED,
                 });
             },
         },
     ]);
 }
 
-function filtersMatch(client, npcs, filters) {
-    return npcs.filter(npc => filters.every(filter => filter.filterFn(client)(npc))).length > 1;
+export function addOrderMiss(order, index) {
+    const margin = 10;
+
+    return add([
+        sprite('cross'),
+        pos(index * 8 + (index + 1) * margin, height() - margin),
+        z(100),
+        fixed(),
+        origin('center'),
+        'orderMiss',
+    ]);
 }
