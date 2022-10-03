@@ -37,24 +37,13 @@ npm run build
 ### Deploy
 To deploy on Ludum Dare or itch.io, zip the content of the "dist" folder and upload it.
 
-## Features
-- Thomas
-  - Cannot play if Game over
+## Todo
   - NPC for restaurant + associated food
-
-- Other
-  - Show restaurant name on sprite
   - Show waiting orders
-  - Tutorial + home screen
-  - Music (main theme) + SFX
+  - Show in game Tutorial
+  - Add home screen
+  - Sound effects
   - Logo
-  - Itch.io page & ludum dare page
-
-## Bugs 
-- Animation quand effonce et relache une touche de déplacement rapidement
-- Se déplace plus vite en diagonale
-- Les dialogs qui disparaissent
-- ✔ When order expired is not remove from deliverer
 
 ## Credits
 ### Contributors
