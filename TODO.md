@@ -1,6 +1,6 @@
-# Todo list
+# TODO
 
-## Feedback to analyse
+## 🟢 Feedback to analyse
 - Lack of information to differentiate restaurants from other buildings 
 - Too many orders and message from restaurants at the same time, we are
   - Solution? : Only one order at the same, new order after deliverying to NPC
@@ -8,14 +8,25 @@
   - Solution? : is this information "New order in ..." useful ? Can we just remove it ?
 - If you collide with both an NPC and a restaurant, it is not practical to interact with both the restaurant AND the NPC by pressing Space only once.
 
-## Ideas
+## 🟡 Ideas to validate
 - Change score/points to money "$" to be more realistic ?
 - Add white outline around NPC and/or restaurant when colliding to indicate that we can interact ?
 - Bonus score if we chain the orders ?
 - Add timer for pending orders in restaurants ?
+- Increase difficulty  as the game progresses. Suggestions:
+  - Having more complicated hints. Examples:
+    - The last person you delivered a pizza to
+    - His name starts with "A"
+  - Reduce pick up time and/or delivery time
+  - Increase the number of orders at the same time
+  - Increase map size
+  - Have more and more hints based on outfit rather than name
+  - Increase the number of NPC
+  - Make NPC move
+- Add cars
+- Make NPCs move around a bit
 
-## Features
-Ordered by priority :
+## 🔵 New features
 - Add restaurant name in sprite
 - Show food image in the hint message when restaurant gives you the order 
 - Add feedback when an order has expired
@@ -33,7 +44,6 @@ Ordered by priority :
 - Add an indication of pending orders in restaurants
 - Associate one food to each restaurant (Fries, Pizza, Chicken, Sushi, Salad ?)
 
-## Bugs
+## 🔴 Bugs to fix
 - Increase game over text z index
 - Check if the randomness is correct (when choosing restaurant and/or NPC)
-None identified (for now...)
