@@ -53,7 +53,11 @@ To deploy on Ludum Dare or itch.io, zip the content of the "dist" folder and upl
 ### Assets
 - [Roguelike Modern City by Kenney](https://kenney.nl/assets/roguelike-modern-city)
 - [RPG Urban Pack by Kenney](https://kenney.nl/assets/rpg-urban-pack)
+- [Input Prompts Pixel 16x by Kenney](https://kenney.nl/assets/input-prompts-pixel-16)
 - [Alifdoll's Pixel Food by Alifdoll](https://alifdoll.itch.io/pixel-food-asset)
 
 ### Sounds
-- [City on Speed by Section 31 - Tech](https://opengameart.org/art-search?keys=city+speed)
+- [City on Speed by Section 31 - Tech](https://opengameart.org/content/city-on-speed)
+
+### Energy for the team
+- Delicious cookies by my girlfriend <3
