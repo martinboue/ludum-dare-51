@@ -35,15 +35,11 @@ npm run build
 ```
 
 ### Deploy
-To deploy on Ludum Dare or itch.io, zip the content of the "dist" folder and upload it.
+To deploy on Ludum Dare or itch.io: 
 
-## Todo
-  - NPC for restaurant + associated food
-  - Show waiting orders
-  - Show in game Tutorial
-  - Add home screen
-  - Sound effects
-  - Logo
+1. zip the content of the `dist` folder.
+2. Rename the zip file to `is-this-your-order-vX.X.X` with the current version.
+3. Upload the zip file.
 
 ## Credits
 ### Contributors
