@@ -31,7 +31,6 @@
 - Show food image in the hint message when restaurant gives you the order 
 - Add feedback when an order has expired
 - Add restart button or message "Reload page to restart" at the end
-- Change hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only.
 - Rotate more often NPC to see their colours better
 - Lose one life if you give the order to the wrong NPC 3 times in a row
 - Increase music volume

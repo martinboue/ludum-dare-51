@@ -18,7 +18,7 @@ export function generateOrder(npcs, deliveryDelay) {
     } else {
         // Generate hint to target this client
         const hints = generateHints(client, npcs)
-        hintPhrase = "[This is for the guy with].black ";
+        hintPhrase = "[This is for the client with].black ";
         if (hints.length > 1) {
             hintPhrase += hints
                 .map(h => "[" + h.getText(client) + "]." + h.getColor(client))
