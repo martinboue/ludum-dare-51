@@ -43,6 +43,7 @@ const WRONG_NPC_POINTS = 10;
 const PLAYER_SPEED = 150; // pixel/seconds
 const MAX_MISSED_ORDER = 3; // Game over if 3 missed order
 const PLAYER_MAX_CARRIED_ORDERS = 2;
+const SHAKE_INTENSITY = 1;
 
 kaboom({
     scale: 4,
@@ -313,7 +314,7 @@ on('order-expired', 'orderItem', (orderItem, order) => {
     const numberOfMisses = get('orderMiss').length;
 
     addOrderMiss(order, numberOfMisses);
-    shake(1); // Shake off course
+    shake(SHAKE_INTENSITY); // Shake off course
 
     if (numberOfMisses + 1 >= MAX_MISSED_ORDER) {
         showGameOver();
@@ -327,7 +328,7 @@ onKeyPress(['space', 'enter'], () => {
             const order = building.peekOrder();
             if (order) {
                 if (deliverer.isFull()) {
-                    shake(1);
+                    shake(SHAKE_INTENSITY);
                     building.say(`[${building.name}].red[:You have too many orders! Deliver them first and then come back to me.].black`);
                 } else {
                     building.say(order.deliveryInfo.hint);
@@ -336,7 +337,7 @@ onKeyPress(['space', 'enter'], () => {
                     deliverer.pushOrder(building.pollOrder());
                 }
             } else {
-                shake(1);
+                shake(SHAKE_INTENSITY);
                 building.say(`[${building.name}].red[: No orders for you.].black`);
             }
         }
@@ -356,6 +357,7 @@ onKeyPress(['space', 'enter'], () => {
             }
             // Lose points if asking the wrong NPC
             else if (deliverer.hasOrders()) {
+                shake(SHAKE_INTENSITY);
                 npc.say("[No, this is not my order.].black")
                 score.decreaseScore(WRONG_NPC_POINTS)
                 showPoints(-WRONG_NPC_POINTS, deliverer)

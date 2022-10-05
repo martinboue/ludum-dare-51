@@ -35,13 +35,13 @@
 - Increase music volume
 - Add volume slider for audio 
 - Show personal high score at the end (local storage ?)
-- Shake screen when you try to give an order to the wrong NPC
 - Add sound effects for: new order, take order, give order, expired order, wrong NPC, lose life, game over, ...
 - Add home screen
 - Show in game tutorial
 - Add an indication of pending orders in restaurants
 - Add mobile support by adding arrow buttons and space button
 - Support window resizing and small screen
+- Resize text containers based on text width
 
 ## 🔴 Bugs to fix
 - Check if the randomness is correct (when choosing restaurant and/or NPC)

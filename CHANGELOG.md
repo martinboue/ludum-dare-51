@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## v1.1.0 - Unrelease
+### Added
+- Shake screen when you try to give an order to the wrong client
 
 ### Changed
 - Change hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only.
