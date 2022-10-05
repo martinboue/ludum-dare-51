@@ -5,5 +5,6 @@ export function addGameOver() {
         origin('center'),
         color(RED),
         fixed(),
+        z(1000)
     ]);
 }

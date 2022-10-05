@@ -47,5 +47,5 @@
 - Support window resizing and small screen
 
 ## 🔴 Bugs to fix
-- Increase game over text z index
 - Check if the randomness is correct (when choosing restaurant and/or NPC)
+- Remove artefacts when showing a text
