@@ -1,7 +1,9 @@
 
+const currency = "$";
+
 export function addScore() {
 
-    const getScoreText = (score) => 'Score: ' + score;
+    const getScoreText = (score) => score + currency;
 
     const computerOrderScore = (order) => {
         if (order.getRemainingTime() <= 0) {
@@ -39,7 +41,7 @@ export function addScore() {
 export function showPoints(points, deliverer) {
 
     return add([
-        text((points >= 0 ? '+' : '') + points, {size: 6}),
+        text((points >= 0 ? '+' : '') + points + currency, {size: 6}),
         pos(vec2(deliverer.pos.x, deliverer.pos.y - 10)),
         color(points >= 0 ? rgb(255, 215, 0) : rgb(200, 0, 0)),
         origin("center"),

@@ -9,7 +9,6 @@
 - If you collide with both an NPC and a restaurant, it is not practical to interact with both the restaurant AND the NPC by pressing Space only once.
 
 ## 🟡 Ideas to validate
-- Change score/points to money "$" to be more realistic ?
 - Add white outline around NPC and/or restaurant when colliding to indicate that we can interact ?
 - Bonus score if we chain the orders ?
 - Add timer for pending orders in restaurants ?
