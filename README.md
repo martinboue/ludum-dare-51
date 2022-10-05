@@ -11,6 +11,9 @@ edition of the game jam "Ludum Dare" whose theme was "Every 10 seconds".
 
 Made with [Kaboom JS](https://kaboomjs.com/).
 
+## Tutorial
+![Tutorial](assets/tutorial.png)
+
 ## Usage
 ### Requirements
 Install NodeJS
