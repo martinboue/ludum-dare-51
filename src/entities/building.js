@@ -1,7 +1,7 @@
 'use strict';
 
-import {orderHolder} from "./components/orderHolder.js";
-import talk from "./components/talk.js";
+import {orderHolder} from "../components/orderHolder.js";
+import talk from "../components/talk.js";
 
 /**
  * @param deliverer the character to talk to

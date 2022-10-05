@@ -11,6 +11,7 @@ import foodAtlas from "../assets/sprites/food.png";
 import inputsAtlas from "../assets/sprites/inputs.png";
 import phone from '../assets/phone.png';
 import cross from '../assets/cross.png';
+import tutorial from '../assets/tutorial.png';
 import music from "../assets/sounds/S31-City on Speed.ogg"
 
 // Fixme: not working on itch.io if asset import is not in main.js
@@ -25,14 +26,15 @@ import orderLines from "./data/order-lines.json";
 // Components
 import {addOrderItem, addOrderMiss, generateOrder} from "./order.js";
 import keyMove from "./components/keyMove.js";
-import {generateBuildings} from "./building.js";
+import {generateBuildings} from "./entities/building.js";
 import {orderHolder} from "./components/orderHolder.js";
-import {spawnNpcs} from "./character.js";
+import {spawnNpcs} from "./entities/character.js";
 import {elasped} from "./components/elasped.js";
-import {addGlobalDialog} from "./globalDialog.js";
+import {addGlobalDialog} from "./entities/globalDialog.js";
 import {showPoints, addScore} from "./score.js";
-import {addGlobalHelper} from "./globalHelper.js";
-import {addGameOver} from "./gameOver.js";
+import {addGlobalHelper} from "./entities/globalHelper.js";
+import {addGameOver} from "./entities/gameOver.js";
+import {addTutorial} from "./entities/tutorial.js";
 
 // GAME CONSTANTS
 const EXPLORATION_TIME = 30; // seconds
@@ -52,12 +54,21 @@ kaboom({
 });
 
 
+// TUTORIAL
+loadSprite("tutorial", tutorial)
+addTutorial()
+
 // MUSIC
 loadSound("music", music);
 play("music", {
     volume: 0.1,
     loop: true
 });
+let muted = false;
+onKeyPress("m", () => {
+    volume(muted ? 1 : 0);
+    muted = !muted;
+})
 
 // LOAD ASSETS
 loadSpriteAtlas(inputsAtlas, {

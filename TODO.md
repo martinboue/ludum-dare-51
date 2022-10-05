@@ -36,11 +36,12 @@
 - Show personal high score at the end (local storage ?)
 - Add sound effects for: new order, take order, give order, expired order, wrong NPC, lose life, game over, ...
 - Add home screen
-- Show in game tutorial
 - Add an indication of pending orders in restaurants
 - Add mobile support by adding arrow buttons and space button
 - Support window resizing and small screen
 - Resize text containers based on text width
+- Update tutorial to indicate new shortcuts H and M
+- Add close button for tutorial
 
 ## 🔴 Bugs to fix
 - Check if the randomness is correct (when choosing restaurant and/or NPC)

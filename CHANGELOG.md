@@ -5,7 +5,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## v1.1.0 - Unrelease
 ### Added
-- Shake screen when you try to give an order to the wrong client
+- Add screen shaking when you try to give an order to the wrong client
+- Add mute shortcut with "M"
+- Add in-game tutorial and shortcut with "H"
 
 ### Changed
 - Change hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only.
