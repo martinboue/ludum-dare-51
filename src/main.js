@@ -42,6 +42,7 @@ const NB_NPC = 10;
 const WRONG_NPC_POINTS = 10;
 const PLAYER_SPEED = 150; // pixel/seconds
 const MAX_MISSED_ORDER = 3; // Game over if 3 missed order
+const PLAYER_MAX_CARRIED_ORDERS = 2;
 
 kaboom({
     scale: 4,
@@ -181,7 +182,7 @@ const deliverer = add([
   area({ width: 12, height: 12 }),
   origin("bot"),
   keyMove(PLAYER_SPEED, globalHelper),
-  orderHolder(2),
+  orderHolder(PLAYER_MAX_CARRIED_ORDERS),
   "deliverer",
 ]);
 
@@ -374,13 +375,13 @@ const start = () => {
         if (!gameOver.hidden) return;
 
         // Pick random restaurant (only those with a place for an order)
-        const notFullBuildings = buildings.filter(b => !b.isFull());
-        if (!Array.empty(notFullBuildings)) {
-          const building = notFullBuildings.pickRandom();
-          building.pushOrder(generateOrder(get('npc'), DELIVERY_TIME));
+        const notFullRestaurants = buildings.filter(b => !b.isFull());
+        if (!Array.empty(notFullRestaurants)) {
+          const restaurant = notFullRestaurants.pickRandom();
+            restaurant.pushOrder(generateOrder(get('npc'), restaurant, DELIVERY_TIME));
 
           // Update globalDialog with hint
-          globalDialog.show(building.name, orderLines.pickRandom());
+          globalDialog.show(restaurant.name, orderLines.pickRandom());
         }
 
         orderTimer.remainingTime = NEW_ORDER_TIME;

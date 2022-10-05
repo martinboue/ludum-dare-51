@@ -5,38 +5,23 @@
     "spriteX": 0
   },
   {
-    "name": "Sandwich",
-    "code": "sandwich",
+    "name": "Fried chicken",
+    "code": "chicken",
     "spriteX": 1
-  },
-  {
-    "name": "Ramen",
-    "code": "ramen",
-    "spriteX": 2
-  },
-  {
-    "name": "Maki",
-    "code": "maki",
-    "spriteX": 3
   },
   {
     "name": "Sushi",
     "code": "sushi",
-    "spriteX": 4
+    "spriteX": 2
+  },
+  {
+    "name": "Meal",
+    "code": "meal",
+    "spriteX": 3
   },
   {
     "name": "Pizza",
     "code": "pizza",
-    "spriteX": 5
-  },
-  {
-    "name": "Fries",
-    "code": "fries",
-    "spriteX": 6
-  },
-  {
-    "name": "Ice cream",
-    "code": "ice_cream",
-    "spriteX": 7
+    "spriteX": 4
   }
 ]

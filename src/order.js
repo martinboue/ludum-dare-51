@@ -1,11 +1,7 @@
 import "./utils/array.js";
-import foodList from "./data/food.json";
 import {identityFilters} from "./identityFilters.js";
 
-export function generateOrder(npcs, deliveryDelay) {
-    // Choose random food
-    const food = foodList.pickRandom();
-
+export function generateOrder(npcs, restaurant, deliveryDelay) {
     // Select a NPC client
     const client = npcs.pickRandom();
 
@@ -37,7 +33,7 @@ export function generateOrder(npcs, deliveryDelay) {
 
     // Create order
     return {
-        food: food,
+        food: restaurant.food,
         deliveryInfo: deliveryInfo,
         deliveryDelay: deliveryDelay,
         expireAt: time(),
@@ -84,7 +80,7 @@ export function addOrderItem(order, index) {
     const margin = 10;
 
     return add([
-        sprite(order.food.code),
+        sprite(order.food),
         pos(index * 16 + (index + 1) * margin, margin),
         z(100),
         fixed(),

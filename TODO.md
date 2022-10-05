@@ -40,7 +40,6 @@
 - Add home screen
 - Show in game tutorial
 - Add an indication of pending orders in restaurants
-- Associate one food to each restaurant (Fries, Pizza, Chicken, Sushi, Salad ?)
 - Add mobile support by adding arrow buttons and space button
 - Support window resizing and small screen
 
