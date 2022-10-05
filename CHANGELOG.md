@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Change hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only.
 - Change score/points to money "$" to be more realistic.
 - Associate one food to each restaurant (Big Donald = Burger, KCF = Chicken, Chuchichop = Sushi, Chef Michel = meal, Gromino's = Pizza)
+- Increase default music volume
 
 ## v1.0.1 - Unreleased
 ### Fixed

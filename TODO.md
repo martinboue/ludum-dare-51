@@ -32,7 +32,6 @@
 - Add restart button or message "Reload page to restart" at the end
 - Rotate more often NPC to see their colours better
 - Lose one life if you give the order to the wrong NPC 3 times in a row
-- Increase music volume
 - Add volume slider for audio 
 - Show personal high score at the end (local storage ?)
 - Add sound effects for: new order, take order, give order, expired order, wrong NPC, lose life, game over, ...

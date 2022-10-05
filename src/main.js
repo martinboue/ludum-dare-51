@@ -55,7 +55,7 @@ kaboom({
 // MUSIC
 loadSound("music", music);
 play("music", {
-    volume: 0.001,
+    volume: 0.1,
     loop: true
 });
 
