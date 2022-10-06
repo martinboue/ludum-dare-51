@@ -9,6 +9,7 @@
 - If you collide with both an NPC and a restaurant, it is not practical to interact with both the restaurant AND the NPC by pressing Space only once.
 
 ## 🟡 Ideas to validate
+- Have only one order at the same time ?
 - Add white outline around NPC and/or restaurant when colliding to indicate that we can interact ?
 - Bonus score if we chain the orders ?
 - Add timer for pending orders in restaurants ?
@@ -24,6 +25,7 @@
   - Make NPC move
 - Add cars
 - Make NPCs move around a bit
+- Show again the hint if you come back to the restaurant
 
 ## 🔵 New features
 - Add restaurant name in sprite
@@ -42,6 +44,8 @@
 - Resize text containers based on text width
 - Update tutorial to indicate new shortcuts H and M
 - Add close button for tutorial
+- Remove "Next order in ..." message
+- Only be able to retrieve orders only in front of restaurants and not from all around.
 
 ## 🔴 Bugs to fix
 - Check if the randomness is correct (when choosing restaurant and/or NPC)
