@@ -11,11 +11,11 @@ export function addTutorial() {
 
     const tutorial = {
         show() {
-            tutorial.hidden = false;
+            tutoImg.hidden = false;
         },
 
         hide() {
-            tutorial.hidden = true;
+            tutoImg.hidden = true;
         },
 
         toggle() {
@@ -25,6 +25,9 @@ export function addTutorial() {
     onKeyPress("h", () => {
         tutorial.toggle()
     })
+
+    // FIXME
+    tutorial.hide()
 
     return tutorial;
 }

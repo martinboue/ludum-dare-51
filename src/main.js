@@ -37,7 +37,8 @@ import {addGameOver} from "./entities/gameOver.js";
 import {addTutorial} from "./entities/tutorial.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // seconds
+const INDICATION_TIME = 5; // seconds
+const EXPLORATION_TIME = 5; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
@@ -243,21 +244,43 @@ const orderTimer = add([
 
 // Exploration timer
 add([
-    text('Explore the city!', { size: 10, font: "sinko" }),
+    text('Explore the city!', { size: 12, font: "sinko" }),
+    pos(center().x, center().y - 45),
+    origin('center'),
+    fixed(),
+    elasped(INDICATION_TIME, function () {
+        destroy(this);
+    }),
+]);
+add([
+    text('Locate the 5 restaurants and meet everyone', { size: 8, font: "sinko", width: width() * 0.75 }),
     pos(center().x, center().y - 30),
     origin('center'),
     fixed(),
-    elasped(3, function () {
+    elasped(INDICATION_TIME, function () {
         destroy(this);
     }),
 ]);
 
 add([
     text('', { size: 12, font: "sinko" }),
-    pos(center().x, center().y - 50),
+    pos(center().x, center().y - 60),
     fixed(),
     origin("center"),
     elasped(1, function () {
+        if (this.remainingTime === INDICATION_TIME) {
+            // Show indications first
+            add([
+                text('Pick up orders from restaurants and deliver them', { size: 10, font: "sinko", width: width() * 0.75 }),
+                pos(center().x, center().y - 30),
+                origin('center'),
+                fixed(),
+                elasped(INDICATION_TIME, function () {
+                    destroy(this);
+                })
+            ]);
+        }
+
         if (this.remainingTime <= 0) {
             destroy(this);
             // When exploration time is done => start the game
@@ -390,11 +413,11 @@ const start = () => {
         // Pick random restaurant (only those with a place for an order)
         const notFullRestaurants = buildings.filter(b => !b.isFull());
         if (!Array.empty(notFullRestaurants)) {
-          const restaurant = notFullRestaurants.pickRandom();
+            const restaurant = notFullRestaurants.pickRandom();
             restaurant.pushOrder(generateOrder(get('npc'), restaurant, DELIVERY_TIME));
 
-          // Update globalDialog with hint
-          globalDialog.show(restaurant.name, orderLines.pickRandom());
+            // Update globalDialog with hint
+            globalDialog.show(restaurant.name, orderLines.pickRandom(), restaurant.color);
         }
 
         orderTimer.remainingTime = NEW_ORDER_TIME;

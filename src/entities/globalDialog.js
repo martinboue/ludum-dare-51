@@ -1,3 +1,5 @@
+import getTextStyle from "../textStyle.js";
+
 export function addGlobalDialog() {
     const containerMarginX = 10;
     const containerPaddingX = 7;
@@ -22,9 +24,8 @@ export function addGlobalDialog() {
 
     // Create dialog text
     const txt = add([
-        text("", { size: 6, width: container.width - containerPaddingX * 3 - image.area.width }),
+        text("", { size: 6, width: container.width - containerPaddingX * 3 - image.area.width, styles: getTextStyle() }),
         pos(containerMarginX + containerPaddingX * 2 + image.area.width, container.pos.y),
-        color(0, 0, 0),
         origin("left"),
         z(100)
     ]);
@@ -42,8 +43,8 @@ export function addGlobalDialog() {
 
     return {
 
-        show(author, message, timeout=5) {
-            txt.text = `${author}: ${message}`;
+        show(author, message, color) {
+            txt.text = `[${author}].${color}[: ${message}].black`;
 
             // Update food sprite
             image.use(sprite('phone'));
@@ -54,7 +55,7 @@ export function addGlobalDialog() {
             image.hidden = false;
 
             // Hide dialog after x seconds
-            wait(timeout, () => {
+            wait(5, () => {
                 this.dismiss();
             });
         },

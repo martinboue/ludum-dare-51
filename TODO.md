@@ -28,8 +28,7 @@
 - Show again the hint if you come back to the restaurant
 
 ## 🔵 New features
-- Show food image in the hint message when restaurant gives you the order 
-- Add feedback when an order has expired
+- Add feedback when an order has expired (message + shake)
 - Add restart button or message "Reload page to restart" at the end
 - Lose one life if you give the order to the wrong NPC 3 times in a row
 - Add volume slider for audio 
@@ -43,7 +42,7 @@
 - Update tutorial to indicate new shortcuts H and M
 - Add close button for tutorial
 - Add menu which pause the timers
-- Rapidly food on top of deliverer like "+100$" when taking food from restaurant
+- Rapidly show food on top of deliverer like "+100$" when taking food from restaurant
 - Remove "Next order in ..." message
 - Only be able to retrieve orders only in front of restaurants and not from all around.
 

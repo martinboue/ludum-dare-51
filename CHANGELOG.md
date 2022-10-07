@@ -5,10 +5,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## v1.1.0 - Unrelease
 ### Added
-- Add screen shaking when you try to give an order to the wrong client
-- Add mute shortcut with "M"
-- Add in-game tutorial and shortcut with "H"
-- Add restaurants names in map sprite
+- Added screen shaking when you try to give an order to the wrong client
+- Added mute shortcut with "M"
+- Added in-game tutorial and shortcut with "H"
+- Added restaurants names in map sprite
+- Added indications at the beginning of the game and at the first order. 
 
 ### Changed
 - Changed hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only.
@@ -18,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Changed food sprites to be more harmonious
 - Changed margin between picked up food orders
 - Rotate more often NPC to see their colors better
+- Changed the color of the restaurant name in the order ready message.
 
 ## v1.0.1 - Unreleased
 ### Fixed
