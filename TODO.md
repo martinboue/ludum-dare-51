@@ -42,6 +42,8 @@
 - Resize text containers based on text width
 - Update tutorial to indicate new shortcuts H and M
 - Add close button for tutorial
+- Add menu which pause the timers
+- Rapidly food on top of deliverer like "+100$" when taking food from restaurant
 
 ## 🔴 Bugs to fix
 - Check if the randomness is correct (when choosing restaurant and/or NPC)

@@ -77,11 +77,12 @@ function filtersMatch(client, npcs, filters) {
 }
 
 export function addOrderItem(order, index) {
-    const margin = 10;
+    const margin = 6;
+    const foodSize = 16
 
     return add([
         sprite(order.food),
-        pos(index * 16 + (index + 1) * margin, margin),
+        pos(foodSize / 2 + index * 16 + (index + 1) * margin, foodSize / 2 + margin),
         z(100),
         fixed(),
         origin('center'),
