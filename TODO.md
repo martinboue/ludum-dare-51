@@ -28,7 +28,6 @@
 - Show again the hint if you come back to the restaurant
 
 ## 🔵 New features
-- Add restaurant name in sprite
 - Show food image in the hint message when restaurant gives you the order 
 - Add feedback when an order has expired
 - Add restart button or message "Reload page to restart" at the end
