@@ -1,7 +1,6 @@
 # TODO
 
 ## 🟢 Feedback to analyse
-- Lack of information to differentiate restaurants from other buildings 
 - Too many orders and message from restaurants at the same time, we are
   - Solution? : Only one order at the same, new order after deliverying to NPC
 - The message "New order in ..." (restaurant) is confused with orders to be delivered
@@ -13,6 +12,8 @@
 - Add white outline around NPC and/or restaurant when colliding to indicate that we can interact ?
 - Bonus score if we chain the orders ?
 - Add timer for pending orders in restaurants ?
+- Remove "Next order in ..." message ?
+- Add an indication of pending orders in restaurants ?
 - Increase difficulty  as the game progresses. Suggestions:
   - Having more complicated hints. Examples:
     - The last person you delivered a pizza to
@@ -35,7 +36,6 @@
 - Show personal high score at the end (local storage ?)
 - Add sound effects for: new order, take order, give order, expired order, wrong NPC, lose life, game over, ...
 - Add home screen
-- Add an indication of pending orders in restaurants
 - Add mobile support by adding arrow buttons and space button
 - Support window resizing and small screen
 - Resize text containers based on text width
@@ -43,9 +43,7 @@
 - Add close button for tutorial
 - Add menu which pause the timers
 - Rapidly show food on top of deliverer like "+100$" when taking food from restaurant
-- Remove "Next order in ..." message
 - Only be able to retrieve orders only in front of restaurants and not from all around.
 
 ## 🔴 Bugs to fix
-- Check if the randomness is correct (when choosing restaurant and/or NPC)
 - Remove artefacts when showing a text
