@@ -9,17 +9,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added mute shortcut with "M"
 - Added in-game tutorial and shortcut with "H"
 - Added restaurants names in map sprite
-- Added indications at the beginning of the game and at the first order. 
+- Added indications at the beginning of the game and at the first order.
 
 ### Changed
-- Changed hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only.
+- Changed hint text "It's the GUY with ..." to be non-gendered. It can be assumed that we are referring to men only
 - Changed score/points to money "$" to be more realistic.
 - Associate one food to each restaurant (Big Donald = Burger, KCF = Chicken, Chuchichop = Sushi, Chef Michel = meal, Gromino's = Pizza)
 - Increased default music volume
 - Changed food sprites to be more harmonious
 - Changed margin between picked up food orders
 - Rotate more often NPC to see their colors better
-- Changed the color of the restaurant name in the order ready message.
+- Changed the color of the restaurant name in the order ready message
+- Changed space bar icon to be more visible with white outline
 
 ## v1.0.1 - Unreleased
 ### Fixed
