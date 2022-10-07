@@ -19,7 +19,7 @@ export function autoMove(frameNames) {
             lastMove = time()
 
             // Generate the next move date
-            nextMove = lastMove + Math.randomFloatBetween(1, 10);
+            nextMove = lastMove + Math.randomFloatBetween(1, 5);
 
             // Choose random position until it's different from previous
             let nextFrame = null;

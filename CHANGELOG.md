@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Increased default music volume
 - Changed food sprites to be more harmonious
 - Changed margin between picked up food orders
+- Rotate more often NPC to see their colors better
 
 ## v1.0.1 - Unreleased
 ### Fixed

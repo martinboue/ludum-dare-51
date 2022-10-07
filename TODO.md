@@ -31,7 +31,6 @@
 - Show food image in the hint message when restaurant gives you the order 
 - Add feedback when an order has expired
 - Add restart button or message "Reload page to restart" at the end
-- Rotate more often NPC to see their colours better
 - Lose one life if you give the order to the wrong NPC 3 times in a row
 - Add volume slider for audio 
 - Show personal high score at the end (local storage ?)
