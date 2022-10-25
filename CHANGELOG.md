@@ -27,5 +27,4 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Increase game over text Z-index
 
 ## v1.0.0 - 2022-10-05
-### Added
-First version, nothing to say here.
+Official version published for Ludum Dare 51.
