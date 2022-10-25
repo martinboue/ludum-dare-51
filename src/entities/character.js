@@ -1,9 +1,9 @@
-import skins from "./data/skins.json";
-import talk from "./components/talk.js";
-import {identity} from "./components/identity.js";
+import skins from "../data/skins.json";
+import talk from "../components/talk.js";
+import {identity} from "../components/identity.js";
 import {uniqueNamesGenerator, names} from "unique-names-generator";
-import {skin} from "./components/skin.js";
-import {autoMove} from "./components/autoMove.js";
+import {skin} from "../components/skin.js";
+import {autoMove} from "../components/autoMove.js";
 
 export function spawnNpcs(deliverer, nbNpcs) {
     // Get each spawn and select some randomly

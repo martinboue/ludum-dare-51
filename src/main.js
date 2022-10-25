@@ -11,6 +11,7 @@ import foodAtlas from "../assets/sprites/food.png";
 import inputsAtlas from "../assets/sprites/inputs.png";
 import phone from '../assets/phone.png';
 import cross from '../assets/cross.png';
+import tutorial from '../assets/tutorial.png';
 import music from "../assets/sounds/S31-City on Speed.ogg"
 
 // Fixme: not working on itch.io if asset import is not in main.js
@@ -25,23 +26,27 @@ import orderLines from "./data/order-lines.json";
 // Components
 import {addOrderItem, addOrderMiss, generateOrder} from "./order.js";
 import keyMove from "./components/keyMove.js";
-import {generateBuildings} from "./building.js";
+import {generateBuildings} from "./entities/building.js";
 import {orderHolder} from "./components/orderHolder.js";
-import {spawnNpcs} from "./character.js";
+import {spawnNpcs} from "./entities/character.js";
 import {elasped} from "./components/elasped.js";
-import {addGlobalDialog} from "./globalDialog.js";
+import {addGlobalDialog} from "./entities/globalDialog.js";
 import {showPoints, addScore} from "./score.js";
-import {addGlobalHelper} from "./globalHelper.js";
-import {addGameOver} from "./gameOver.js";
+import {addGlobalHelper} from "./entities/globalHelper.js";
+import {addGameOver} from "./entities/gameOver.js";
+import {addTutorial} from "./entities/tutorial.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 30; // seconds
+const EXPLORATION_TIME = 12; // seconds
+const INDICATION_TIME = 5; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
 const NB_NPC = 10;
 const WRONG_NPC_POINTS = 10;
 const PLAYER_SPEED = 150; // pixel/seconds
 const MAX_MISSED_ORDER = 3; // Game over if 3 missed order
+const PLAYER_MAX_CARRIED_ORDERS = 2;
+const SHAKE_INTENSITY = 1;
 
 kaboom({
     scale: 4,
@@ -50,12 +55,21 @@ kaboom({
 });
 
 
+// TUTORIAL
+loadSprite("tutorial", tutorial)
+addTutorial()
+
 // MUSIC
 loadSound("music", music);
 play("music", {
-    volume: 0.001,
+    volume: 0.1,
     loop: true
 });
+let muted = false;
+onKeyPress("m", () => {
+    volume(muted ? 1 : 0);
+    muted = !muted;
+})
 
 // LOAD ASSETS
 loadSpriteAtlas(inputsAtlas, {
@@ -181,7 +195,7 @@ const deliverer = add([
   area({ width: 12, height: 12 }),
   origin("bot"),
   keyMove(PLAYER_SPEED, globalHelper),
-  orderHolder(2),
+  orderHolder(PLAYER_MAX_CARRIED_ORDERS),
   "deliverer",
 ]);
 
@@ -230,21 +244,43 @@ const orderTimer = add([
 
 // Exploration timer
 add([
-    text('Explore the city!', { size: 10, font: "sinko" }),
+    text('Explore the city!', { size: 12, font: "sinko" }),
+    pos(center().x, center().y - 45),
+    origin('center'),
+    fixed(),
+    elasped(INDICATION_TIME, function () {
+        destroy(this);
+    }),
+]);
+add([
+    text('Locate the 5 restaurants and meet everyone', { size: 8, font: "sinko", width: width() * 0.75 }),
     pos(center().x, center().y - 30),
     origin('center'),
     fixed(),
-    elasped(3, function () {
+    elasped(INDICATION_TIME, function () {
         destroy(this);
     }),
 ]);
 
 add([
     text('', { size: 12, font: "sinko" }),
-    pos(center().x, center().y - 50),
+    pos(center().x, center().y - 60),
     fixed(),
     origin("center"),
     elasped(1, function () {
+        if (this.remainingTime === INDICATION_TIME) {
+            // Show indications first
+            add([
+                text('Pick up orders from restaurants and deliver them', { size: 10, font: "sinko", width: width() * 0.75 }),
+                pos(center().x, center().y - 30),
+                origin('center'),
+                fixed(),
+                elasped(INDICATION_TIME, function () {
+                    destroy(this);
+                })
+            ]);
+        }
+
         if (this.remainingTime <= 0) {
             destroy(this);
             // When exploration time is done => start the game
@@ -312,7 +348,7 @@ on('order-expired', 'orderItem', (orderItem, order) => {
     const numberOfMisses = get('orderMiss').length;
 
     addOrderMiss(order, numberOfMisses);
-    shake(1); // Shake off course
+    shake(SHAKE_INTENSITY); // Shake off course
 
     if (numberOfMisses + 1 >= MAX_MISSED_ORDER) {
         showGameOver();
@@ -326,7 +362,7 @@ onKeyPress(['space', 'enter'], () => {
             const order = building.peekOrder();
             if (order) {
                 if (deliverer.isFull()) {
-                    shake(1);
+                    shake(SHAKE_INTENSITY);
                     building.say(`[${building.name}].red[:You have too many orders! Deliver them first and then come back to me.].black`);
                 } else {
                     building.say(order.deliveryInfo.hint);
@@ -335,7 +371,7 @@ onKeyPress(['space', 'enter'], () => {
                     deliverer.pushOrder(building.pollOrder());
                 }
             } else {
-                shake(1);
+                shake(SHAKE_INTENSITY);
                 building.say(`[${building.name}].red[: No orders for you.].black`);
             }
         }
@@ -355,6 +391,7 @@ onKeyPress(['space', 'enter'], () => {
             }
             // Lose points if asking the wrong NPC
             else if (deliverer.hasOrders()) {
+                shake(SHAKE_INTENSITY);
                 npc.say("[No, this is not my order.].black")
                 score.decreaseScore(WRONG_NPC_POINTS)
                 showPoints(-WRONG_NPC_POINTS, deliverer)
@@ -374,13 +411,13 @@ const start = () => {
         if (!gameOver.hidden) return;
 
         // Pick random restaurant (only those with a place for an order)
-        const notFullBuildings = buildings.filter(b => !b.isFull());
-        if (!Array.empty(notFullBuildings)) {
-          const building = notFullBuildings.pickRandom();
-          building.pushOrder(generateOrder(get('npc'), DELIVERY_TIME));
+        const notFullRestaurants = buildings.filter(b => !b.isFull());
+        if (!Array.empty(notFullRestaurants)) {
+            const restaurant = notFullRestaurants.pickRandom();
+            restaurant.pushOrder(generateOrder(get('npc'), restaurant, DELIVERY_TIME));
 
-          // Update globalDialog with hint
-          globalDialog.show(building.name, orderLines.pickRandom());
+            // Update globalDialog with hint
+            globalDialog.show(restaurant.name, orderLines.pickRandom(), restaurant.color);
         }
 
         orderTimer.remainingTime = NEW_ORDER_TIME;

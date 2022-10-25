@@ -1,11 +1,7 @@
 import "./utils/array.js";
-import foodList from "./data/food.json";
 import {identityFilters} from "./identityFilters.js";
 
-export function generateOrder(npcs, deliveryDelay) {
-    // Choose random food
-    const food = foodList.pickRandom();
-
+export function generateOrder(npcs, restaurant, deliveryDelay) {
     // Select a NPC client
     const client = npcs.pickRandom();
 
@@ -18,7 +14,7 @@ export function generateOrder(npcs, deliveryDelay) {
     } else {
         // Generate hint to target this client
         const hints = generateHints(client, npcs)
-        hintPhrase = "[This is for the guy with].black ";
+        hintPhrase = "[This is for the client with].black ";
         if (hints.length > 1) {
             hintPhrase += hints
                 .map(h => "[" + h.getText(client) + "]." + h.getColor(client))
@@ -37,7 +33,7 @@ export function generateOrder(npcs, deliveryDelay) {
 
     // Create order
     return {
-        food: food,
+        food: restaurant.food,
         deliveryInfo: deliveryInfo,
         deliveryDelay: deliveryDelay,
         expireAt: time(),
@@ -81,11 +77,12 @@ function filtersMatch(client, npcs, filters) {
 }
 
 export function addOrderItem(order, index) {
-    const margin = 10;
+    const margin = 6;
+    const foodSize = 16
 
     return add([
-        sprite(order.food.code),
-        pos(index * 16 + (index + 1) * margin, margin),
+        sprite(order.food),
+        pos(foodSize / 2 + index * 16 + (index + 1) * margin, foodSize / 2 + margin),
         z(100),
         fixed(),
         origin('center'),
