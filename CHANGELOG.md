@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.0 - Unrelease
+## v1.1.0 - 2022-25-10
 ### Added
 - Added screen shaking when you try to give an order to the wrong client
 - Added mute shortcut with "M"
@@ -22,7 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Changed the color of the restaurant name in the order ready message
 - Changed space bar icon to be more visible with white outline
 
-## v1.0.1 - Unreleased
+## v1.0.1 - 2022-10-25
 ### Fixed
 - Increase game over text Z-index
 
