@@ -37,7 +37,7 @@ import {addGameOver} from "./entities/gameOver.js";
 import {addTutorial} from "./entities/tutorial.js";
 
 // GAME CONSTANTS
-const EXPLORATION_TIME = 12; // seconds
+const EXPLORATION_TIME = 30; // seconds
 const INDICATION_TIME = 5; // seconds
 const NEW_ORDER_TIME = 10; // seconds
 const DELIVERY_TIME = 30; // seconds
